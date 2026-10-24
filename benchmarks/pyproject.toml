@@ -1,0 +1,20 @@
+[project]
+name = "deepfake-bench"
+version = "0.1.0"
+description = "Internal FaceFusion attack lab and benchmark framework. Never distributed."
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+classifiers = ["Private :: Do Not Upload"]
+dependencies = [
+    "deepfake-core",
+    "matplotlib>=3.9",
+    "pyyaml>=6",
+    "scikit-learn>=1.5",
+]
+
+[tool.uv.sources]
+deepfake-core = { workspace = true }
+
+[build-system]
+requires = ["uv_build>=0.13,<0.14"]
+build-backend = "uv_build"

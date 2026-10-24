@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+.hypothesis/
+*.egg-info/
+build/
+dist/
+
+# Node / web
+node_modules/
+apps/web/dist/
+apps/web/test-results/
+apps/web/playwright-report/
+
+# Model weights (fetched by `make models`, never committed)
+models/
+
+# Runtime state of the API (uploads, results, evidence)
+var/
+
+# Research data: lab sources, fakes, variants, benchmark runs (see docs/lab/)
+data/
+
+# Downloaded test fixtures (public-domain portraits, GenD sample crops)
+tests/.fixtures/
+
+# Benchmark traces
+*.npz
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/

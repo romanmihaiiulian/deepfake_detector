@@ -1,0 +1,31 @@
+Deepfake Detector
+Copyright 2026 The Deepfake Detector authors
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+-------------------------------------------------------------------------------
+Third-party code included in this repository
+-------------------------------------------------------------------------------
+
+Face alignment (packages/detector/src/deepfake_core/faces/align.py) is ported from
+GenD, https://github.com/yermandy/GenD (commit 387a42266dd385fbe8f7626c5d3aa03eea3bfaab),
+detector.py:align_face.
+  Copyright (c) 2025 Andy
+  MIT License. The full license text is reproduced in the header of align.py.
+
+-------------------------------------------------------------------------------
+Third-party models (downloaded separately by `make models`, not included here)
+-------------------------------------------------------------------------------
+
+GenD CLIP ViT-L/14 weights, https://huggingface.co/yermandy/GenD_CLIP_L_14
+  MIT License (Copyright (c) 2025 Andy). Fine-tuned from OpenAI CLIP ViT-L/14,
+  https://github.com/openai/CLIP, MIT License (Copyright (c) 2021 OpenAI).
+  Paper: A. Yermakov, J. Cech, J. Matas, M. Fritz, "Deepfake detection that generalizes
+  across benchmarks", WACV 2026.
+
+YuNet face detector (face_detection_yunet_2023mar.onnx),
+https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet
+  MIT License (Copyright (c) 2020 Shiqi Yu).
+
+Training-data provenance and commercial-use status of these models are tracked in
+dependencies/licenses.yml.

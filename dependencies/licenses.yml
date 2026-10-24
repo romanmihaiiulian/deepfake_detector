@@ -1,0 +1,925 @@
+# Machine-readable license inventory (see docs/licensing.md).
+#
+# Every dependency, model weight, dataset and tool used by the project is listed here.
+# Package entries (kind: python | npm) are maintained by `tools/check_licenses.py --update`;
+# curated entries (kind: model | dataset | tool | system | reference) are written by hand.
+#
+#   commercial_use: yes | no | review_required
+#   distributed:    true when it ships with the product (runtime closure of deepfake-core /
+#                   deepfake-api, or the web bundle); computed for packages.
+#   notes:          an "EXCEPTION:" note is a signed-off decision to ship a license the
+#                   checker would otherwise reject.
+
+schema_version: 1
+entries:
+- name: 'FaceFusion swapper: alphaface_256'
+  kind: model
+  version: models-3.9.0
+  source: https://github.com/facefusion/facefusion
+  license: LicenseRef-Non-Commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: License per FaceFusion 3.9.1 model metadata (vendor AlphaFace). Lab evaluation only.
+- name: 'FaceFusion swapper: blendswap_256'
+  kind: model
+  version: models-3.0.0
+  source: https://github.com/mapooon/BlendFace
+  license: LicenseRef-Non-Commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: License per FaceFusion 3.9.1 model metadata (vendor mapooon). Lab evaluation only.
+- name: 'FaceFusion swapper: ghost_1_256, ghost_2_256, ghost_3_256'
+  kind: model
+  version: models-3.0.0
+  source: https://github.com/ai-forever/ghost
+  license: Apache-2.0
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: 'License per FaceFusion 3.9.1 model metadata (vendor ai-forever). Lab use only. The only swapper
+    family with a permissive license: candidate for a commercially clean training subset after upstream
+    verification.'
+- name: 'FaceFusion swapper: hififace_unofficial_256, uniface_256'
+  kind: model
+  version: models-3.1.0
+  source: https://github.com/facefusion/facefusion
+  license: UNKNOWN
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: FaceFusion 3.9.1 metadata lists the license as Unknown. Treat as non-commercial.
+- name: 'FaceFusion swapper: hyperswap_1a_256, hyperswap_1b_256, hyperswap_1c_256'
+  kind: model
+  version: models-3.3.0
+  source: https://github.com/facefusion/facefusion
+  license: LicenseRef-ResearchRAIL
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: License per FaceFusion 3.9.1 model metadata (vendor FaceFusion). Lab evaluation only.
+- name: 'FaceFusion swapper: inswapper_128, inswapper_128_fp16'
+  kind: model
+  version: models-3.0.0
+  source: https://github.com/deepinsight/insightface
+  license: LicenseRef-Non-Commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: License per FaceFusion 3.9.1 model metadata (vendor InsightFace). Lab evaluation only.
+- name: 'FaceFusion swapper: simswap_256, simswap_unofficial_512'
+  kind: model
+  version: models-3.0.0
+  source: https://github.com/neuralchen/SimSwap
+  license: LicenseRef-Non-Commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: License per FaceFusion 3.9.1 model metadata (vendor neuralchen). Lab evaluation only.
+- name: GenD CLIP ViT-L/14 weights
+  kind: model
+  version: 891ce014a0308386c4d7d25b3dcf436a22db5504
+  source: https://huggingface.co/yermandy/GenD_CLIP_L_14
+  license: MIT
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: 'Weights are MIT-labelled, but they were trained on FaceForensics++ (research-only terms) and
+    fine-tuned from OpenAI CLIP ViT-L/14. Fetched by the operator with `make models`; not bundled. Long-term
+    clean path: retrain the GenD recipe on lab data plus licensed real footage. See ADR 0003.'
+- name: InsightFace buffalo_l / det_10g (SCRFD)
+  kind: model
+  version: buffalo_l
+  source: https://github.com/deepinsight/insightface
+  license: LicenseRef-InsightFace-models-non-commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: 'Used by upstream GenD preprocessing. Not used by this project; recorded so that nobody adds
+    it. InsightFace README: pretrained models are for non-commercial research only.'
+- name: OpenAI CLIP ViT-L/14 (base of GenD)
+  kind: model
+  version: ViT-L/14
+  source: https://github.com/openai/CLIP
+  license: MIT
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: Code and weights are MIT. The CLIP model card lists any deployed use case, commercial or not,
+    as out of scope; legal review is needed before commercial deployment. Present only inside the GenD
+    weights.
+- name: YuNet face detector (face_detection_yunet_2023mar.onnx)
+  kind: model
+  version: eb9f4f2d4b79b58e5513b5d25d5f0243a8357bf4
+  source: https://github.com/opencv/opencv_zoo/tree/main/models/face_detection_yunet
+  license: MIT
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: MIT-licensed weights trained on WIDER FACE (research-oriented terms). Chosen over InsightFace
+    SCRFD, whose pretrained models are non-commercial. See ADR 0002.
+- name: FaceForensics++
+  kind: dataset
+  version: c23
+  source: https://github.com/ondyari/FaceForensics
+  license: LicenseRef-FaceForensics-ToS-research-only
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Not downloaded by this project. GenD and VLAForge were trained on it. GenD's sample crops (derived
+    from FF++ and Celeb-DF) are fetched at test time by the fidelity test and never committed.
+- name: WIDER FACE
+  kind: dataset
+  version: '1.0'
+  source: http://shuoyang1213.me/WIDERFACE/
+  license: LicenseRef-WIDER-FACE-research
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: Not downloaded by this project; YuNet's training data.
+- name: FaceFusion
+  kind: tool
+  version: 3.9.1
+  source: https://github.com/facefusion/facefusion
+  license: LicenseRef-OpenRAIL-AS
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: Attack-lab generator only. Installed separately in its own venv ($FACEFUSION_HOME), run as a
+    subprocess, never imported, never distributed. Swapper models are listed as separate entries; their
+    licenses are recorded on every generated sample.
+- name: ffmpeg CLI (Homebrew)
+  kind: tool
+  version: 9.0.2
+  source: https://ffmpeg.org/
+  license: GPL-2.0-or-later
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: Built with --enable-gpl (x264, x265). Used only by the attack lab (variants) and one rotation
+    test fixture. Never distributed.
+- name: FFmpeg (bundled in opencv-python-headless wheels)
+  kind: system
+  version: bundled
+  source: https://github.com/opencv/opencv-python
+  license: LGPL-2.1-or-later
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: opencv-python wheels ship an LGPL FFmpeg as a dynamically loaded library. Not used for video
+    I/O by this project (PyAV decodes).
+- name: FFmpeg (bundled in PyAV wheels)
+  kind: system
+  version: 9.0.2
+  source: https://github.com/PyAV-Org/pyav-ffmpeg
+  license: GPL-2.0-or-later
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: 'PyAV''s wheels bundle FFmpeg built with x264/x265, i.e. a GPL build. Fine for development. ACTION
+    before any binary distribution (step 19): build PyAV against an LGPL FFmpeg (no --enable-gpl); all
+    required decoders are LGPL-native. See ADR 0004.'
+- name: DeepfakeBench
+  kind: reference
+  version: n/a
+  source: https://github.com/SCLBD/DeepfakeBench
+  license: CC-BY-NC-4.0
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Research reference only. No code copied into this repository.
+- name: DF40
+  kind: reference
+  version: n/a
+  source: https://github.com/YZY-stack/DF40
+  license: LicenseRef-DF40-non-commercial
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Research reference only; may be imported by the user as an evaluation-only external dataset (benchmarks/import_external).
+    No code copied.
+- name: SBI (Self-Blended Images)
+  kind: reference
+  version: n/a
+  source: https://github.com/mapooon/SelfBlendedImages
+  license: LicenseRef-SBI-research-only
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Research reference only. No code copied.
+- name: VLAForge
+  kind: reference
+  version: pending
+  source: https://github.com/mala-lab/VLAForge
+  license: MIT
+  commercial_use: review_required
+  distributed: false
+  review_date: 2026-10-24
+  notes: Planned step-15 escalation model. Code is MIT-labelled, but its dataset/trainer layout mirrors
+    DeepfakeBench (CC BY-NC 4.0), its weights are on Google Drive with no stated license, and it was trained
+    on FF++. Provenance review is the first task of step 15.
+- name: annotated-doc
+  kind: python
+  version: 0.0.5
+  source: https://pypi.org/project/annotated-doc/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: annotated-types
+  kind: python
+  version: 0.8.0
+  source: https://pypi.org/project/annotated-types/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: anyio
+  kind: python
+  version: 4.15.1
+  source: https://pypi.org/project/anyio/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ast-serialize
+  kind: python
+  version: 0.13.1
+  source: https://pypi.org/project/ast-serialize/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: av
+  kind: python
+  version: 19.0.2
+  source: https://pypi.org/project/av/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: Wheels bundle a GPL FFmpeg build; see 'FFmpeg (bundled in PyAV wheels)' and ADR 0004.
+- name: certifi
+  kind: python
+  version: 2026.10.23
+  source: https://pypi.org/project/certifi/
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: MPL-2.0, unmodified; not in the runtime closure
+- name: click
+  kind: python
+  version: 8.5.0
+  source: https://pypi.org/project/click/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: cloudpickle
+  kind: python
+  version: 3.1.2
+  source: https://pypi.org/project/cloudpickle/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: contourpy
+  kind: python
+  version: 1.4.0
+  source: https://pypi.org/project/contourpy/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: cycler
+  kind: python
+  version: 0.12.1
+  source: https://pypi.org/project/cycler/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: matplotlib dependency (bench only)
+- name: fastapi
+  kind: python
+  version: 0.162.0
+  source: https://pypi.org/project/fastapi/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: filelock
+  kind: python
+  version: 4.2.4
+  source: https://pypi.org/project/filelock/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fonttools
+  kind: python
+  version: 4.67.0
+  source: https://pypi.org/project/fonttools/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fsspec
+  kind: python
+  version: 2026.9.0
+  source: https://pypi.org/project/fsspec/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: h11
+  kind: python
+  version: 0.16.0
+  source: https://pypi.org/project/h11/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hf-xet
+  kind: python
+  version: 1.7.0
+  source: https://pypi.org/project/hf-xet/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: httpcore
+  kind: python
+  version: 1.0.9
+  source: https://pypi.org/project/httpcore/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: httpcore2
+  kind: python
+  version: 2.16.0
+  source: https://pypi.org/project/httpcore2/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: httpx
+  kind: python
+  version: 0.28.1
+  source: https://pypi.org/project/httpx/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: httpx2
+  kind: python
+  version: 2.16.0
+  source: https://pypi.org/project/httpx2/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: huggingface-hub
+  kind: python
+  version: 2.3.0
+  source: https://pypi.org/project/huggingface-hub/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hypothesis
+  kind: python
+  version: 6.170.9
+  source: https://pypi.org/project/hypothesis/
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: dev/test only
+- name: idna
+  kind: python
+  version: '3.20'
+  source: https://pypi.org/project/idna/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: iniconfig
+  kind: python
+  version: 2.3.1
+  source: https://pypi.org/project/iniconfig/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: jinja2
+  kind: python
+  version: 3.1.6
+  source: https://pypi.org/project/jinja2/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: metadata only says 'BSD License'; LICENSE.txt is BSD-3-Clause (torch dependency)
+- name: joblib
+  kind: python
+  version: 1.6.0
+  source: https://pypi.org/project/joblib/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: kiwisolver
+  kind: python
+  version: 1.5.1
+  source: https://pypi.org/project/kiwisolver/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: matplotlib dependency (bench only)
+- name: librt
+  kind: python
+  version: 0.16.0
+  source: https://pypi.org/project/librt/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: markdown-it-py
+  kind: python
+  version: 4.2.0
+  source: https://pypi.org/project/markdown-it-py/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: markupsafe
+  kind: python
+  version: 3.0.4
+  source: https://pypi.org/project/markupsafe/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: matplotlib
+  kind: python
+  version: 3.11.2
+  source: https://pypi.org/project/matplotlib/
+  license: LicenseRef-Matplotlib
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Matplotlib license (PSF-based, BSD-compatible). Bench only.
+- name: mdurl
+  kind: python
+  version: 0.1.2
+  source: https://pypi.org/project/mdurl/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: mpmath
+  kind: python
+  version: 1.3.0
+  source: https://pypi.org/project/mpmath/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: metadata says 'BSD'; LICENSE is BSD-3-Clause (sympy dependency)
+- name: mypy
+  kind: python
+  version: 2.4.0
+  source: https://pypi.org/project/mypy/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: mypy-extensions
+  kind: python
+  version: 1.1.0
+  source: https://pypi.org/project/mypy-extensions/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: narwhals
+  kind: python
+  version: 2.27.1
+  source: https://pypi.org/project/narwhals/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: networkx
+  kind: python
+  version: '3.7'
+  source: https://pypi.org/project/networkx/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: numpy
+  kind: python
+  version: 2.5.4
+  source: https://pypi.org/project/numpy/
+  license: BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: opencv-python-headless
+  kind: python
+  version: 4.14.0.94
+  source: https://pypi.org/project/opencv-python-headless/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: Wheels bundle an LGPL FFmpeg (unused for video I/O here). Pinned <5, see ADR 0002.
+- name: opentelemetry-api
+  kind: python
+  version: 1.45.1
+  source: https://pypi.org/project/opentelemetry-api/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: packaging
+  kind: python
+  version: '26.3'
+  source: https://pypi.org/project/packaging/
+  license: Apache-2.0 OR BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pathspec
+  kind: python
+  version: 1.1.1
+  source: https://pypi.org/project/pathspec/
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: dev tooling dependency only
+- name: pillow
+  kind: python
+  version: 13.0.0
+  source: https://pypi.org/project/pillow/
+  license: MIT-CMU
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pluggy
+  kind: python
+  version: 1.7.0
+  source: https://pypi.org/project/pluggy/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pydantic
+  kind: python
+  version: 2.14.1
+  source: https://pypi.org/project/pydantic/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pydantic-core
+  kind: python
+  version: 2.50.1
+  source: https://pypi.org/project/pydantic-core/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pydantic-settings
+  kind: python
+  version: 2.16.1
+  source: https://pypi.org/project/pydantic-settings/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pygments
+  kind: python
+  version: 2.21.0
+  source: https://pypi.org/project/pygments/
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pyparsing
+  kind: python
+  version: 3.3.3
+  source: https://pypi.org/project/pyparsing/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pytest
+  kind: python
+  version: 9.1.1
+  source: https://pypi.org/project/pytest/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: python-dateutil
+  kind: python
+  version: 3.0.0
+  source: https://pypi.org/project/python-dateutil/
+  license: Apache-2.0 OR BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: dual-licensed; matplotlib dependency (bench only)
+- name: python-dotenv
+  kind: python
+  version: 1.2.4
+  source: https://pypi.org/project/python-dotenv/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: python-multipart
+  kind: python
+  version: 0.0.32
+  source: https://pypi.org/project/python-multipart/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pyyaml
+  kind: python
+  version: 6.0.3
+  source: https://pypi.org/project/pyyaml/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: regex
+  kind: python
+  version: 2026.9.29
+  source: https://pypi.org/project/regex/
+  license: Apache-2.0 AND CNRI-Python
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: rich
+  kind: python
+  version: 15.0.0
+  source: https://pypi.org/project/rich/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ruff
+  kind: python
+  version: 0.17.2
+  source: https://pypi.org/project/ruff/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: safetensors
+  kind: python
+  version: 0.8.0
+  source: https://pypi.org/project/safetensors/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: scikit-learn
+  kind: python
+  version: 1.9.1
+  source: https://pypi.org/project/scikit-learn/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: scipy
+  kind: python
+  version: 1.18.1
+  source: https://pypi.org/project/scipy/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: LICENSE.txt is BSD-3-Clause; bundled third-party components are permissive (LICENSES_bundled.txt)
+- name: setuptools
+  kind: python
+  version: 84.2.1
+  source: https://pypi.org/project/setuptools/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: shellingham
+  kind: python
+  version: 1.5.4
+  source: https://pypi.org/project/shellingham/
+  license: ISC
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: six
+  kind: python
+  version: 1.17.0
+  source: https://pypi.org/project/six/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: sortedcontainers
+  kind: python
+  version: 2.4.0
+  source: https://pypi.org/project/sortedcontainers/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: starlette
+  kind: python
+  version: 1.9.0
+  source: https://pypi.org/project/starlette/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: sympy
+  kind: python
+  version: 1.14.0
+  source: https://pypi.org/project/sympy/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: metadata says 'BSD'; LICENSE is BSD-3-Clause (torch dependency)
+- name: threadpoolctl
+  kind: python
+  version: 3.7.0
+  source: https://pypi.org/project/threadpoolctl/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tokenizers
+  kind: python
+  version: 0.23.3
+  source: https://pypi.org/project/tokenizers/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: torch
+  kind: python
+  version: 2.14.1
+  source: https://pypi.org/project/torch/
+  license: Apache-2.0 AND Apache-2.0 WITH LLVM-exception AND BSD-2-Clause AND BSD-3-Clause AND BSL-1.0
+    AND MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tqdm
+  kind: python
+  version: 4.70.1
+  source: https://pypi.org/project/tqdm/
+  license: MPL-2.0 AND MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: 'MPL-2.0 is file-level copyleft: shipped unmodified, source is public on PyPI/GitHub. OK for
+    commercial use.'
+- name: transformers
+  kind: python
+  version: 5.20.2
+  source: https://pypi.org/project/transformers/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: truststore
+  kind: python
+  version: 0.10.5
+  source: https://pypi.org/project/truststore/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: typer
+  kind: python
+  version: 0.27.3
+  source: https://pypi.org/project/typer/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: types-pyyaml
+  kind: python
+  version: 6.0.12.20260906
+  source: https://pypi.org/project/types-pyyaml/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: typing-extensions
+  kind: python
+  version: 4.16.0
+  source: https://pypi.org/project/typing-extensions/
+  license: PSF-2.0
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: typing-inspection
+  kind: python
+  version: 0.4.4
+  source: https://pypi.org/project/typing-inspection/
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tzdata
+  kind: python
+  version: '2026.5'
+  source: https://pypi.org/project/tzdata/
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: uvicorn
+  kind: python
+  version: 0.54.0
+  source: https://pypi.org/project/uvicorn/
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata

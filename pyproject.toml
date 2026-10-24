@@ -1,0 +1,59 @@
+# Virtual workspace root: it is not a package itself.
+# Members: packages/detector (deepfake-core), apps/api (deepfake-api), benchmarks (deepfake-bench).
+
+[tool.uv.workspace]
+members = ["packages/detector", "apps/api", "benchmarks"]
+
+[tool.uv]
+environments = ["sys_platform == 'darwin'", "sys_platform == 'linux'"]
+
+[tool.uv.sources]
+deepfake-core = { workspace = true }
+deepfake-api = { workspace = true }
+deepfake-bench = { workspace = true }
+
+[dependency-groups]
+dev = [
+    "deepfake-core",
+    "deepfake-api",
+    "deepfake-bench",
+    "hypothesis>=6.100",
+    "httpx>=0.27",
+    "mypy>=1.13",
+    "packaging>=24",
+    "pytest>=8.3",
+    "ruff>=0.8",
+    "types-PyYAML>=6",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["apps/web"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "SIM", "C4", "RUF", "PTH", "NPY", "PERF"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["deepfake_core", "deepfake_api", "deepfake_bench", "tools"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+files = ["packages/detector/src", "apps/api/src", "benchmarks/src", "tools"]
+warn_unreachable = true
+
+[[tool.mypy.overrides]]
+module = ["scipy.*", "sklearn.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+addopts = ["-ra", "--strict-markers", "--strict-config"]
+xfail_strict = true
+markers = [
+    "models: needs the downloaded model weights (make models)",
+    "ffmpeg: needs the ffmpeg CLI on PATH",
+    "facefusion: needs a FaceFusion install ($FACEFUSION_HOME) and a consented test clip",
+]

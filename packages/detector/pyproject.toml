@@ -1,0 +1,22 @@
+[project]
+name = "deepfake-core"
+version = "0.1.0"
+description = "Video face-manipulation detection engine: decoding, quality gate, face tracking, GenD scoring"
+license = "Apache-2.0"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "av>=19",
+    "numpy>=2.1",
+    "opencv-python-headless>=4.14,<5",
+    "pillow>=11",
+    "pydantic>=2.10",
+    "pyyaml>=6",
+    "safetensors>=0.5",
+    "scipy>=1.14",
+    "torch>=2.8",
+    "transformers>=4.56",
+]
+
+[build-system]
+requires = ["uv_build>=0.13,<0.14"]
+build-backend = "uv_build"
