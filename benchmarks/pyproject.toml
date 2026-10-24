@@ -12,6 +12,9 @@ dependencies = [
     "scikit-learn>=1.5",
 ]
 
+[project.scripts]
+dfbench = "deepfake_bench.cli:main"
+
 [tool.uv.sources]
 deepfake-core = { workspace = true }
 

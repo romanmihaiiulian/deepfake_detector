@@ -1,0 +1,35 @@
+# FaceFusion attack lab: what to generate (see docs/lab/benchmark.md).
+#
+# Each consented source video yields one real sample. For each donor identity in the
+# same split (`donors_per_target`) and each swapper below, it also yields one fake. Real
+# and fake samples get identical final encodes ("pristine": x264 crf 18).
+
+canonical:            # near-lossless intermediate shared by the real sample and FaceFusion
+  max_seconds: 30
+  max_fps: 30
+  max_height: 1080
+
+splits:               # identities are split first; donors and targets never cross splits
+  seed: 20261024
+  ratios: {train: 0.6, val: 0.2, test: 0.2}
+
+coverage:             # reject "fakes" in which the face was not actually swapped
+  min_fraction: 0.8
+  sample_hz: 4
+  diff_threshold: 6.0
+  max_frame_count_delta: 2
+
+donors_per_target: 2
+
+# Swapper licenses (FaceFusion 3.9.1 metadata) are recorded on every sample. Only ghost_*
+# is Apache-2.0; the rest are non-commercial, research RAIL or unknown, so they are fine
+# for evaluation and must not end up in a commercial training set.
+swappers:
+  - {model: hyperswap_1a_256, pixel_boost: 256x256}
+  - {model: inswapper_128, pixel_boost: 256x256}
+  - {model: simswap_256, pixel_boost: 256x256}
+  - {model: ghost_2_256, pixel_boost: 256x256}
+  - {model: blendswap_256, pixel_boost: 256x256}
+
+# "Unseen FaceFusion settings" slice: these appear only in the test split.
+held_out_for_test: [ghost_2_256, blendswap_256]
