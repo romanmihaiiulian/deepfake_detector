@@ -11,6 +11,7 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
+from typing import Literal
 
 import yaml
 from pydantic import BaseModel, ConfigDict, Field
@@ -88,7 +89,10 @@ class QualityConfig(_Section):
     # video level
     resolution_short_side: Band = Band(good=720, fair=480, poor=144)
     effective_fps: Band = Band(good=20, fair=10, poor=2)
-    bits_per_pixel: Band = Band(good=0.05, fair=0.015, poor=0.0)
+    # Bits per pixel is a weak proxy: simple or static scenes compress very well even at
+    # high quality, so it can only flag starved bitrates. Face sharpness and size measure
+    # visible degradation directly.
+    bits_per_pixel: Band = Band(good=0.02, fair=0.008, poor=0.0)
     frame_availability: Band = Band(good=0.95, fair=0.8, poor=0.5)
     # face level, measured per detection on the aligned crop
     face_crop_size: Band = Band(good=200, fair=120, poor=64)
@@ -101,6 +105,45 @@ class QualityConfig(_Section):
     face_alignment_residual: Band = Band(good=0.03, fair=0.06, poor=0.1, higher_is_better=False)
 
 
+class GenDConfig(_Section):
+    batch_size: int = Field(default=16, gt=0)
+
+
+class AggregationConfig(_Section):
+    track_score: Literal["mean", "median", "window_max"] = Field(
+        default="mean", description="GenD protocol: mean of frame probabilities"
+    )
+    min_scored_frames: int = Field(default=8, gt=0, description="Eligibility: ~2 s at 4 Hz")
+    window_s: float = Field(default=4.0, gt=0, description="Window for the window_max statistic")
+    interval_threshold: float = Field(default=0.6, ge=0, le=1)
+    interval_min_duration_s: float = Field(default=1.0, ge=0)
+    interval_merge_gap_s: float = Field(default=1.0, ge=0)
+    interval_smoothing: int = Field(default=3, ge=1, description="Median filter width (samples)")
+    evidence_count: int = Field(default=4, ge=0)
+    evidence_min_separation_s: float = Field(default=1.0, ge=0)
+
+
+class VerdictConfig(_Section):
+    """Decision bands on the (uncalibrated) manipulation probability, per quality tier.
+
+    The manipulated threshold is deliberately high: GenD gives scores of 0.8-0.98 to
+    some real footage outside its training distribution (e.g. Celeb-DF real frames), and
+    the product's first objective is a very low false-positive rate. M7 replaces these
+    with values chosen at target false-positive rates on lab data.
+    """
+
+    manipulated_threshold: float = Field(default=0.80, ge=0, le=1)
+    authentic_threshold: float = Field(default=0.30, ge=0, le=1)
+    poor_manipulated_threshold: float = Field(default=0.90, ge=0, le=1)
+    poor_authentic_threshold: float = Field(default=0.15, ge=0, le=1)
+    high_confidence_margin: float = 0.15
+    medium_confidence_margin: float = 0.05
+    high_confidence_min_frames: int = 24
+    medium_confidence_min_frames: int = 12
+    high_confidence_max_iqr: float = 0.25
+    medium_confidence_max_iqr: float = 0.45
+
+
 class PipelineConfig(_Section):
     profile: str = "uncalibrated-v0"
     validation: ValidationConfig = ValidationConfig()
@@ -109,6 +152,9 @@ class PipelineConfig(_Section):
     detection: DetectionConfig = DetectionConfig()
     tracking: TrackingConfig = TrackingConfig()
     alignment: AlignmentConfig = AlignmentConfig()
+    gend: GenDConfig = GenDConfig()
+    aggregation: AggregationConfig = AggregationConfig()
+    verdict: VerdictConfig = VerdictConfig()
 
     def config_hash(self) -> str:
         canonical = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))

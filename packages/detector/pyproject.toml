@@ -17,6 +17,9 @@ dependencies = [
     "transformers>=4.56",
 ]
 
+[project.scripts]
+deepfake-core = "deepfake_core.cli:main"
+
 [build-system]
 requires = ["uv_build>=0.13,<0.14"]
 build-backend = "uv_build"

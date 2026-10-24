@@ -210,7 +210,7 @@ def test_good_video_is_good() -> None:
 
 
 def test_conferencing_like_video_is_poor() -> None:
-    conf = info(width=640, height=360, fps=15.0, bit_rate=60_000)
+    conf = info(width=640, height=360, fps=15.0, bit_rate=25_000)
     result = grade_video(conf, stats(frames_decoded=150, span=149 / 15), CONFIG)
     assert result.tier is Tier.POOR
     assert {"low_resolution", "high_compression"} <= {r.code for r in result.reasons}

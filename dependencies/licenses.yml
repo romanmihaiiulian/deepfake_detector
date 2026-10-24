@@ -129,6 +129,17 @@ entries:
   review_date: 2026-10-24
   notes: Not downloaded by this project. GenD and VLAForge were trained on it. GenD's sample crops (derived
     from FF++ and Celeb-DF) are fetched at test time by the fidelity test and never committed.
+- name: 'Test fixtures: GenD sample face crops (FF++ / Celeb-DF v2 frames)'
+  kind: dataset
+  version: 387a42266dd385fbe8f7626c5d3aa03eea3bfaab
+  source: https://github.com/yermandy/GenD/tree/387a42266dd385fbe8f7626c5d3aa03eea3bfaab/datasets
+  license: LicenseRef-FaceForensics-CelebDF-research-only
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-24
+  notes: 20 aligned 256 px crops published in the GenD repository. Fetched at test time by `make fixtures`
+    for the GenD fidelity test; never committed or distributed. tests/core/data/gend_reference.json holds
+    only probabilities computed from them.
 - name: 'Test fixtures: NASA portraits (Ellen Ochoa, Mae Jemison, Neil Armstrong)'
   kind: dataset
   version: wikimedia-commons-2026-10-24

@@ -37,7 +37,24 @@ make models   # GenD (1.2 GB) and YuNet weights, pinned and sha256-verified, int
 make check    # lint, types, tests, license inventory
 ```
 
-`make help` lists all targets.
+`make help` lists all targets. Tests that need model weights or downloaded fixtures
+(`make fixtures`) skip when those are absent.
+
+## Analyze a video
+
+```sh
+uv run deepfake-core analyze interview.mp4 --json result.json --evidence-dir evidence/
+```
+
+```python
+from deepfake_core import analyze_video
+
+result = analyze_video("interview.mp4")
+print(result.verdict, result.manipulation_probability, result.confidence, result.video_quality)
+```
+
+Read [docs/model-card.md](docs/model-card.md) before you rely on a result. Scores are
+uncalibrated, and GenD has known false positives on some real footage.
 
 ## Licensing
 

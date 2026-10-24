@@ -63,11 +63,14 @@ def write_video(
     codec: str | None = None,
     rotation: int = 0,
     container_options: dict[str, str] | None = None,
+    codec_options: dict[str, str] | None = None,
     image_for: Callable[[int], Image] | None = None,
 ) -> Path:
     """Encode a synthetic video. `times` (seconds) makes it variable frame rate."""
     codec = codec or DEFAULT_CODECS[path.suffix.lower()]
     count = frames if isinstance(frames, int) else len(frames)
+    if not isinstance(frames, int) and count:
+        size = (frames[0].shape[1], frames[0].shape[0])  # never let the encoder rescale
     time_base = Fraction(1, 1000) if times is not None else Fraction(1, fps)
     with av.open(str(path), "w", options=container_options or {}) as out:
         stream = out.add_stream(codec, rate=fps)
@@ -75,7 +78,7 @@ def write_video(
         stream.pix_fmt = "yuv420p"
         stream.time_base = time_base
         stream.codec_context.time_base = time_base
-        stream.options = CODEC_OPTIONS.get(codec, {})
+        stream.options = {**CODEC_OPTIONS.get(codec, {}), **(codec_options or {})}
         if rotation:
             stream.set_display_rotation(rotation)
         for i in range(count):
