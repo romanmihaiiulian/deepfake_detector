@@ -82,6 +82,7 @@ PERMISSIVE = frozenset(
         "HPND",
         "ISC",
         "MIT",
+        "MIT-0",
         "MIT-CMU",
         "PSF-2.0",
         "Python-2.0",

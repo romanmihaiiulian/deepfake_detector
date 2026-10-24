@@ -3,7 +3,7 @@
 from deepfake_core.scoring.aggregate import FrameScore, TrackScore, score_track, video_probability
 from deepfake_core.scoring.evidence import CandidatePool, EvidencePick, select_evidence
 from deepfake_core.scoring.intervals import Interval, suspicious_intervals
-from deepfake_core.scoring.verdict import Decision, decide
+from deepfake_core.scoring.verdict import Decision, bands, decide
 
 __all__ = [
     "CandidatePool",
@@ -12,6 +12,7 @@ __all__ = [
     "FrameScore",
     "Interval",
     "TrackScore",
+    "bands",
     "decide",
     "score_track",
     "select_evidence",

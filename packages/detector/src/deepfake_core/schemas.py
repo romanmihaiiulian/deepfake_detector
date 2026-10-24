@@ -41,6 +41,13 @@ class SuspiciousInterval(_Model):
     track_id: int
 
 
+class DecisionThresholds(_Model):
+    """The verdict bands applied to this video (they depend on its quality tier)."""
+
+    authentic: float = Field(description="authentic_likely at or below this score")
+    manipulated: float = Field(description="manipulated_likely at or above this score")
+
+
 class QualityReason(_Model):
     code: str
     message: str
@@ -140,6 +147,7 @@ class AnalysisResult(_Model):
     detector_scores: dict[str, float]
     suspicious_intervals: list[SuspiciousInterval]
     verdict_reasons: list[str]
+    decision_thresholds: DecisionThresholds
     quality: QualityDetails
     tracks: list[TrackResult]
     evidence: list[EvidenceFrame]

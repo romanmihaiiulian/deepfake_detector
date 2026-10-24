@@ -56,9 +56,14 @@ These are observations, not benchmark results:
   fake FF++ frames score 0.96–0.99, and real FF++ frames 0.09–0.66. Four real Celeb-DF
   v2 frames (`Celeb-real/id0_0000`) score **0.80–0.98**. Upstream GenD gives the same
   values, so this is model behaviour, not a porting error.
-- **Out-of-distribution content.** An animated, scanned 1969 film portrait scored 0.86 in
-  our tests. Old photos, heavy retouching, filters and animated stills are not
-  interview-like video.
+- **A real portrait is flagged.** We made test clips from three public-domain NASA portraits,
+  all real photographs (`make fixtures`). As a static clip, `mae_jemison.jpg` scored **0.94**;
+  gently animated, it scored 0.71. The other two portraits scored 0.22–0.32. Three images
+  prove nothing statistically. But a false positive on the only Black woman in our small
+  fixture set is exactly the disparate-impact failure a demographic evaluation must rule
+  out before any HR deployment.
+- **Out-of-distribution content.** Old or scanned photos, heavy retouching, beauty filters
+  and animated stills are not interview-like video. Expect unreliable scores on them.
 - **Different face detector.** Our detector is not the one GenD was trained with. YuNet
   landmarks differ slightly from SCRFD's, so crops differ slightly. The benchmark (M7)
   measures the effect.

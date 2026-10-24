@@ -945,3 +945,2451 @@ entries:
   distributed: true
   review_date: 2026-10-24
   notes: permissive license per package metadata
+- name: '@adobe/css-tools'
+  kind: npm
+  version: 4.5.0
+  source: https://www.npmjs.com/package/@adobe/css-tools
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@asamuzakjp/css-color'
+  kind: npm
+  version: 7.1.7
+  source: https://www.npmjs.com/package/@asamuzakjp/css-color
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@asamuzakjp/dom-selector'
+  kind: npm
+  version: 10.0.5
+  source: https://www.npmjs.com/package/@asamuzakjp/dom-selector
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/code-frame'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/code-frame
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/compat-data'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/compat-data
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/core'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/core
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/generator'
+  kind: npm
+  version: 7.29.8
+  source: https://www.npmjs.com/package/@babel/generator
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-compilation-targets'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-compilation-targets
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-globals'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-globals
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-module-imports'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-module-imports
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-module-transforms'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-module-transforms
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-string-parser'
+  kind: npm
+  version: 7.29.11
+  source: https://www.npmjs.com/package/@babel/helper-string-parser
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-validator-identifier'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-validator-identifier
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helper-validator-option'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/helper-validator-option
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/helpers'
+  kind: npm
+  version: 7.29.10
+  source: https://www.npmjs.com/package/@babel/helpers
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/parser'
+  kind: npm
+  version: 7.29.11
+  source: https://www.npmjs.com/package/@babel/parser
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/runtime'
+  kind: npm
+  version: 7.29.10
+  source: https://www.npmjs.com/package/@babel/runtime
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/template'
+  kind: npm
+  version: 7.29.7
+  source: https://www.npmjs.com/package/@babel/template
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/traverse'
+  kind: npm
+  version: 7.29.10
+  source: https://www.npmjs.com/package/@babel/traverse
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@babel/types'
+  kind: npm
+  version: 7.29.11
+  source: https://www.npmjs.com/package/@babel/types
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@bramus/specificity'
+  kind: npm
+  version: 2.4.3
+  source: https://www.npmjs.com/package/@bramus/specificity
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@cacheable/memory'
+  kind: npm
+  version: 2.2.0
+  source: https://www.npmjs.com/package/@cacheable/memory
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@cacheable/utils'
+  kind: npm
+  version: 2.5.0
+  source: https://www.npmjs.com/package/@cacheable/utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/color-helpers'
+  kind: npm
+  version: 6.1.2
+  source: https://www.npmjs.com/package/@csstools/color-helpers
+  license: MIT-0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/css-calc'
+  kind: npm
+  version: 3.4.3
+  source: https://www.npmjs.com/package/@csstools/css-calc
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/css-color-parser'
+  kind: npm
+  version: 4.2.6
+  source: https://www.npmjs.com/package/@csstools/css-color-parser
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/css-parser-algorithms'
+  kind: npm
+  version: 4.0.2
+  source: https://www.npmjs.com/package/@csstools/css-parser-algorithms
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/css-syntax-patches-for-csstree'
+  kind: npm
+  version: 1.1.15
+  source: https://www.npmjs.com/package/@csstools/css-syntax-patches-for-csstree
+  license: MIT-0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@csstools/css-tokenizer'
+  kind: npm
+  version: 4.0.2
+  source: https://www.npmjs.com/package/@csstools/css-tokenizer
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint-community/eslint-utils'
+  kind: npm
+  version: 4.10.1
+  source: https://www.npmjs.com/package/@eslint-community/eslint-utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint-community/regexpp'
+  kind: npm
+  version: 4.12.2
+  source: https://www.npmjs.com/package/@eslint-community/regexpp
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/config-array'
+  kind: npm
+  version: 0.23.5
+  source: https://www.npmjs.com/package/@eslint/config-array
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/config-helpers'
+  kind: npm
+  version: 0.7.0
+  source: https://www.npmjs.com/package/@eslint/config-helpers
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/core'
+  kind: npm
+  version: 1.2.1
+  source: https://www.npmjs.com/package/@eslint/core
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/js'
+  kind: npm
+  version: 10.0.1
+  source: https://www.npmjs.com/package/@eslint/js
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/object-schema'
+  kind: npm
+  version: 3.0.5
+  source: https://www.npmjs.com/package/@eslint/object-schema
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@eslint/plugin-kit'
+  kind: npm
+  version: 0.7.3
+  source: https://www.npmjs.com/package/@eslint/plugin-kit
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@exodus/bytes'
+  kind: npm
+  version: 1.16.0
+  source: https://www.npmjs.com/package/@exodus/bytes
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@humanfs/core'
+  kind: npm
+  version: 0.19.2
+  source: https://www.npmjs.com/package/@humanfs/core
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@humanfs/node'
+  kind: npm
+  version: 0.16.8
+  source: https://www.npmjs.com/package/@humanfs/node
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@humanfs/types'
+  kind: npm
+  version: 0.15.0
+  source: https://www.npmjs.com/package/@humanfs/types
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@humanwhocodes/module-importer'
+  kind: npm
+  version: 1.0.1
+  source: https://www.npmjs.com/package/@humanwhocodes/module-importer
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@humanwhocodes/retry'
+  kind: npm
+  version: 0.4.3
+  source: https://www.npmjs.com/package/@humanwhocodes/retry
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@jridgewell/gen-mapping'
+  kind: npm
+  version: 0.3.13
+  source: https://www.npmjs.com/package/@jridgewell/gen-mapping
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@jridgewell/remapping'
+  kind: npm
+  version: 2.3.5
+  source: https://www.npmjs.com/package/@jridgewell/remapping
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@jridgewell/resolve-uri'
+  kind: npm
+  version: 3.1.2
+  source: https://www.npmjs.com/package/@jridgewell/resolve-uri
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@jridgewell/sourcemap-codec'
+  kind: npm
+  version: 1.6.0
+  source: https://www.npmjs.com/package/@jridgewell/sourcemap-codec
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@jridgewell/trace-mapping'
+  kind: npm
+  version: 0.3.31
+  source: https://www.npmjs.com/package/@jridgewell/trace-mapping
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@keyv/bigmap'
+  kind: npm
+  version: 1.3.1
+  source: https://www.npmjs.com/package/@keyv/bigmap
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@keyv/serialize'
+  kind: npm
+  version: 1.1.1
+  source: https://www.npmjs.com/package/@keyv/serialize
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@oxc-project/types'
+  kind: npm
+  version: 0.155.0
+  source: https://www.npmjs.com/package/@oxc-project/types
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@playwright/test'
+  kind: npm
+  version: 1.64.1
+  source: https://www.npmjs.com/package/@playwright/test
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@redocly/ajv'
+  kind: npm
+  version: 8.11.2
+  source: https://www.npmjs.com/package/@redocly/ajv
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@redocly/config'
+  kind: npm
+  version: 0.22.0
+  source: https://www.npmjs.com/package/@redocly/config
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@redocly/openapi-core'
+  kind: npm
+  version: 1.34.22
+  source: https://www.npmjs.com/package/@redocly/openapi-core
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-android-arm-eabi'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-android-arm-eabi
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-android-arm64'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-android-arm64
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-darwin-arm64'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-darwin-arm64
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-darwin-x64'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-darwin-x64
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-freebsd-x64'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-freebsd-x64
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-arm-gnueabihf'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-arm-gnueabihf
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-arm64-gnu'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-arm64-gnu
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-arm64-musl'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-arm64-musl
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-ppc64-gnu'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-ppc64-gnu
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-s390x-gnu'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-s390x-gnu
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-x64-gnu'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-x64-gnu
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-linux-x64-musl'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-linux-x64-musl
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-openharmony-arm64'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-openharmony-arm64
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-win32-arm64-msvc'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-win32-arm64-msvc
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/binding-win32-x64-msvc'
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/@rolldown/binding-win32-x64-msvc
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@rolldown/pluginutils'
+  kind: npm
+  version: 1.0.1
+  source: https://www.npmjs.com/package/@rolldown/pluginutils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@testing-library/dom'
+  kind: npm
+  version: 10.4.2
+  source: https://www.npmjs.com/package/@testing-library/dom
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@testing-library/jest-dom'
+  kind: npm
+  version: 7.0.1
+  source: https://www.npmjs.com/package/@testing-library/jest-dom
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@testing-library/react'
+  kind: npm
+  version: 16.3.3
+  source: https://www.npmjs.com/package/@testing-library/react
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@testing-library/user-event'
+  kind: npm
+  version: 14.6.8
+  source: https://www.npmjs.com/package/@testing-library/user-event
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/aria-query'
+  kind: npm
+  version: 5.0.4
+  source: https://www.npmjs.com/package/@types/aria-query
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/chai'
+  kind: npm
+  version: 5.2.3
+  source: https://www.npmjs.com/package/@types/chai
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/deep-eql'
+  kind: npm
+  version: 4.0.2
+  source: https://www.npmjs.com/package/@types/deep-eql
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/esrecurse'
+  kind: npm
+  version: 4.3.1
+  source: https://www.npmjs.com/package/@types/esrecurse
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/estree'
+  kind: npm
+  version: 1.0.9
+  source: https://www.npmjs.com/package/@types/estree
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/json-schema'
+  kind: npm
+  version: 7.0.15
+  source: https://www.npmjs.com/package/@types/json-schema
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/node'
+  kind: npm
+  version: 24.19.2
+  source: https://www.npmjs.com/package/@types/node
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/react'
+  kind: npm
+  version: 19.3.0
+  source: https://www.npmjs.com/package/@types/react
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@types/react-dom'
+  kind: npm
+  version: 19.3.0
+  source: https://www.npmjs.com/package/@types/react-dom
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/eslint-plugin'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/eslint-plugin
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/parser'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/parser
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/project-service'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/project-service
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/scope-manager'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/scope-manager
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/tsconfig-utils'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/tsconfig-utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/type-utils'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/type-utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/types'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/types
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/typescript-estree'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/typescript-estree
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/utils'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@typescript-eslint/visitor-keys'
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/@typescript-eslint/visitor-keys
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@vitejs/plugin-react'
+  kind: npm
+  version: 6.1.2
+  source: https://www.npmjs.com/package/@vitejs/plugin-react
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@vitest/mocker'
+  kind: npm
+  version: 5.0.5
+  source: https://www.npmjs.com/package/@vitest/mocker
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: '@vitest/spy'
+  kind: npm
+  version: 5.0.5
+  source: https://www.npmjs.com/package/@vitest/spy
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: acorn
+  kind: npm
+  version: 8.19.0
+  source: https://www.npmjs.com/package/acorn
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: acorn-jsx
+  kind: npm
+  version: 5.3.2
+  source: https://www.npmjs.com/package/acorn-jsx
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: agent-base
+  kind: npm
+  version: 7.1.4
+  source: https://www.npmjs.com/package/agent-base
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ajv
+  kind: npm
+  version: 6.15.0
+  source: https://www.npmjs.com/package/ajv
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ansi-colors
+  kind: npm
+  version: 4.1.3
+  source: https://www.npmjs.com/package/ansi-colors
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ansi-regex
+  kind: npm
+  version: 5.0.1
+  source: https://www.npmjs.com/package/ansi-regex
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ansi-styles
+  kind: npm
+  version: 5.2.0
+  source: https://www.npmjs.com/package/ansi-styles
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: argparse
+  kind: npm
+  version: 2.0.1
+  source: https://www.npmjs.com/package/argparse
+  license: Python-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: aria-query
+  kind: npm
+  version: 5.3.0
+  source: https://www.npmjs.com/package/aria-query
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: assertion-error
+  kind: npm
+  version: 2.0.1
+  source: https://www.npmjs.com/package/assertion-error
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: balanced-match
+  kind: npm
+  version: 1.0.2, 4.0.4
+  source: https://www.npmjs.com/package/balanced-match
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: baseline-browser-mapping
+  kind: npm
+  version: 2.11.32
+  source: https://www.npmjs.com/package/baseline-browser-mapping
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: bidi-js
+  kind: npm
+  version: 1.1.0
+  source: https://www.npmjs.com/package/bidi-js
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: brace-expansion
+  kind: npm
+  version: 2.1.7, 5.0.12
+  source: https://www.npmjs.com/package/brace-expansion
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: browserslist
+  kind: npm
+  version: 4.29.4
+  source: https://www.npmjs.com/package/browserslist
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: cacheable
+  kind: npm
+  version: 2.5.0
+  source: https://www.npmjs.com/package/cacheable
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: caniuse-lite
+  kind: npm
+  version: 1.0.30001819
+  source: https://www.npmjs.com/package/caniuse-lite
+  license: CC-BY-4.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: Browser-support data used by build tooling only; never shipped in the bundle.
+- name: chai
+  kind: npm
+  version: 6.3.0
+  source: https://www.npmjs.com/package/chai
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: change-case
+  kind: npm
+  version: 5.4.4
+  source: https://www.npmjs.com/package/change-case
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: colorette
+  kind: npm
+  version: 1.4.0
+  source: https://www.npmjs.com/package/colorette
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: convert-source-map
+  kind: npm
+  version: 2.0.0
+  source: https://www.npmjs.com/package/convert-source-map
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: cross-spawn
+  kind: npm
+  version: 7.0.6
+  source: https://www.npmjs.com/package/cross-spawn
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: css-tree
+  kind: npm
+  version: 3.2.1
+  source: https://www.npmjs.com/package/css-tree
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: css.escape
+  kind: npm
+  version: 1.5.1
+  source: https://www.npmjs.com/package/css.escape
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: csstype
+  kind: npm
+  version: 3.2.3
+  source: https://www.npmjs.com/package/csstype
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: data-urls
+  kind: npm
+  version: 8.0.0
+  source: https://www.npmjs.com/package/data-urls
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: debug
+  kind: npm
+  version: 4.4.3
+  source: https://www.npmjs.com/package/debug
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: decimal.js
+  kind: npm
+  version: 10.6.0
+  source: https://www.npmjs.com/package/decimal.js
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: deep-is
+  kind: npm
+  version: 0.1.4
+  source: https://www.npmjs.com/package/deep-is
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: dequal
+  kind: npm
+  version: 2.0.3
+  source: https://www.npmjs.com/package/dequal
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: detect-libc
+  kind: npm
+  version: 2.1.2
+  source: https://www.npmjs.com/package/detect-libc
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: dom-accessibility-api
+  kind: npm
+  version: 0.5.16, 0.6.3
+  source: https://www.npmjs.com/package/dom-accessibility-api
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: electron-to-chromium
+  kind: npm
+  version: 1.5.464
+  source: https://www.npmjs.com/package/electron-to-chromium
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: entities
+  kind: npm
+  version: 8.1.0
+  source: https://www.npmjs.com/package/entities
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: es-module-lexer
+  kind: npm
+  version: 2.3.2
+  source: https://www.npmjs.com/package/es-module-lexer
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: escalade
+  kind: npm
+  version: 3.2.0
+  source: https://www.npmjs.com/package/escalade
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: escape-string-regexp
+  kind: npm
+  version: 4.0.0
+  source: https://www.npmjs.com/package/escape-string-regexp
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: eslint
+  kind: npm
+  version: 10.13.0
+  source: https://www.npmjs.com/package/eslint
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: eslint-plugin-react-hooks
+  kind: npm
+  version: 7.1.1
+  source: https://www.npmjs.com/package/eslint-plugin-react-hooks
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: eslint-scope
+  kind: npm
+  version: 9.1.2
+  source: https://www.npmjs.com/package/eslint-scope
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: eslint-visitor-keys
+  kind: npm
+  version: 3.4.3, 5.0.1
+  source: https://www.npmjs.com/package/eslint-visitor-keys
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: espree
+  kind: npm
+  version: 11.2.0
+  source: https://www.npmjs.com/package/espree
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: esquery
+  kind: npm
+  version: 1.7.0
+  source: https://www.npmjs.com/package/esquery
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: esrecurse
+  kind: npm
+  version: 4.3.0
+  source: https://www.npmjs.com/package/esrecurse
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: estraverse
+  kind: npm
+  version: 5.3.0
+  source: https://www.npmjs.com/package/estraverse
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: estree-walker
+  kind: npm
+  version: 3.0.3
+  source: https://www.npmjs.com/package/estree-walker
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: esutils
+  kind: npm
+  version: 2.0.3
+  source: https://www.npmjs.com/package/esutils
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: expect-type
+  kind: npm
+  version: 1.4.0
+  source: https://www.npmjs.com/package/expect-type
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fast-deep-equal
+  kind: npm
+  version: 3.1.3
+  source: https://www.npmjs.com/package/fast-deep-equal
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fast-json-stable-stringify
+  kind: npm
+  version: 2.1.0
+  source: https://www.npmjs.com/package/fast-json-stable-stringify
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fast-levenshtein
+  kind: npm
+  version: 2.0.6
+  source: https://www.npmjs.com/package/fast-levenshtein
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fdir
+  kind: npm
+  version: 6.5.0
+  source: https://www.npmjs.com/package/fdir
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: file-entry-cache
+  kind: npm
+  version: 11.1.5
+  source: https://www.npmjs.com/package/file-entry-cache
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: find-up
+  kind: npm
+  version: 5.0.0
+  source: https://www.npmjs.com/package/find-up
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: flat-cache
+  kind: npm
+  version: 6.1.23
+  source: https://www.npmjs.com/package/flat-cache
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: flatted
+  kind: npm
+  version: 3.4.4
+  source: https://www.npmjs.com/package/flatted
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: fsevents
+  kind: npm
+  version: 2.3.3
+  source: https://www.npmjs.com/package/fsevents
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: gensync
+  kind: npm
+  version: 1.0.0-beta.2
+  source: https://www.npmjs.com/package/gensync
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: glob-parent
+  kind: npm
+  version: 6.0.2
+  source: https://www.npmjs.com/package/glob-parent
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: globals
+  kind: npm
+  version: 17.13.0
+  source: https://www.npmjs.com/package/globals
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hashery
+  kind: npm
+  version: 1.5.1
+  source: https://www.npmjs.com/package/hashery
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hermes-estree
+  kind: npm
+  version: 0.25.1
+  source: https://www.npmjs.com/package/hermes-estree
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hermes-parser
+  kind: npm
+  version: 0.25.1
+  source: https://www.npmjs.com/package/hermes-parser
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: hookified
+  kind: npm
+  version: 1.15.1, 2.2.0
+  source: https://www.npmjs.com/package/hookified
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: html-encoding-sniffer
+  kind: npm
+  version: 7.0.0
+  source: https://www.npmjs.com/package/html-encoding-sniffer
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: https-proxy-agent
+  kind: npm
+  version: 7.0.6
+  source: https://www.npmjs.com/package/https-proxy-agent
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ignore
+  kind: npm
+  version: 5.3.2, 7.0.14
+  source: https://www.npmjs.com/package/ignore
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: imurmurhash
+  kind: npm
+  version: 0.1.4
+  source: https://www.npmjs.com/package/imurmurhash
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: indent-string
+  kind: npm
+  version: 4.0.0
+  source: https://www.npmjs.com/package/indent-string
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: index-to-position
+  kind: npm
+  version: 1.2.0
+  source: https://www.npmjs.com/package/index-to-position
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: is-extglob
+  kind: npm
+  version: 2.1.1
+  source: https://www.npmjs.com/package/is-extglob
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: is-glob
+  kind: npm
+  version: 4.0.3
+  source: https://www.npmjs.com/package/is-glob
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: is-potential-custom-element-name
+  kind: npm
+  version: 1.0.1
+  source: https://www.npmjs.com/package/is-potential-custom-element-name
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: isexe
+  kind: npm
+  version: 2.0.0
+  source: https://www.npmjs.com/package/isexe
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: js-levenshtein
+  kind: npm
+  version: 1.1.6
+  source: https://www.npmjs.com/package/js-levenshtein
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: js-tokens
+  kind: npm
+  version: 4.0.0
+  source: https://www.npmjs.com/package/js-tokens
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: js-yaml
+  kind: npm
+  version: 4.3.2
+  source: https://www.npmjs.com/package/js-yaml
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: jsdom
+  kind: npm
+  version: 30.1.3
+  source: https://www.npmjs.com/package/jsdom
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: jsesc
+  kind: npm
+  version: 3.1.0
+  source: https://www.npmjs.com/package/jsesc
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: json-schema-traverse
+  kind: npm
+  version: 0.4.1, 1.0.0
+  source: https://www.npmjs.com/package/json-schema-traverse
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: json-stable-stringify-without-jsonify
+  kind: npm
+  version: 1.0.1
+  source: https://www.npmjs.com/package/json-stable-stringify-without-jsonify
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: json5
+  kind: npm
+  version: 2.2.3
+  source: https://www.npmjs.com/package/json5
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: keyv
+  kind: npm
+  version: 5.6.0
+  source: https://www.npmjs.com/package/keyv
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: levn
+  kind: npm
+  version: 0.4.1
+  source: https://www.npmjs.com/package/levn
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: lightningcss
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-android-arm64
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-android-arm64
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-darwin-arm64
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-darwin-arm64
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-darwin-x64
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-darwin-x64
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-freebsd-x64
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-freebsd-x64
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-linux-arm-gnueabihf
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-linux-arm-gnueabihf
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-linux-arm64-gnu
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-linux-arm64-gnu
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-linux-arm64-musl
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-linux-arm64-musl
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-linux-x64-gnu
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-linux-x64-gnu
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-linux-x64-musl
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-linux-x64-musl
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-win32-arm64-msvc
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-win32-arm64-msvc
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: lightningcss-win32-x64-msvc
+  kind: npm
+  version: 1.33.0
+  source: https://www.npmjs.com/package/lightningcss-win32-x64-msvc
+  license: MPL-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: CSS tooling used at build time by Vite, unmodified; never shipped in the bundle.
+- name: locate-path
+  kind: npm
+  version: 6.0.0
+  source: https://www.npmjs.com/package/locate-path
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: lru-cache
+  kind: npm
+  version: 11.5.3, 5.1.1
+  source: https://www.npmjs.com/package/lru-cache
+  license: BlueOak-1.0.0 OR ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: lz-string
+  kind: npm
+  version: 1.5.0
+  source: https://www.npmjs.com/package/lz-string
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: magic-string
+  kind: npm
+  version: 1.4.3
+  source: https://www.npmjs.com/package/magic-string
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: mdn-data
+  kind: npm
+  version: 2.27.1
+  source: https://www.npmjs.com/package/mdn-data
+  license: CC0-1.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: min-indent
+  kind: npm
+  version: 1.0.1
+  source: https://www.npmjs.com/package/min-indent
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: minimatch
+  kind: npm
+  version: 10.2.6, 5.1.9
+  source: https://www.npmjs.com/package/minimatch
+  license: BlueOak-1.0.0 OR ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ms
+  kind: npm
+  version: 2.1.3
+  source: https://www.npmjs.com/package/ms
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: nanoid
+  kind: npm
+  version: 3.3.20
+  source: https://www.npmjs.com/package/nanoid
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: natural-compare
+  kind: npm
+  version: 1.4.0
+  source: https://www.npmjs.com/package/natural-compare
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: node-releases
+  kind: npm
+  version: 2.0.60
+  source: https://www.npmjs.com/package/node-releases
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: obug
+  kind: npm
+  version: 3.0.0
+  source: https://www.npmjs.com/package/obug
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: openapi-typescript
+  kind: npm
+  version: 7.13.0
+  source: https://www.npmjs.com/package/openapi-typescript
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: optionator
+  kind: npm
+  version: 0.9.4
+  source: https://www.npmjs.com/package/optionator
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: p-limit
+  kind: npm
+  version: 3.1.0
+  source: https://www.npmjs.com/package/p-limit
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: p-locate
+  kind: npm
+  version: 5.0.0
+  source: https://www.npmjs.com/package/p-locate
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: parse-json
+  kind: npm
+  version: 8.3.0
+  source: https://www.npmjs.com/package/parse-json
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: parse5
+  kind: npm
+  version: 8.0.1
+  source: https://www.npmjs.com/package/parse5
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: path-exists
+  kind: npm
+  version: 4.0.0
+  source: https://www.npmjs.com/package/path-exists
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: path-key
+  kind: npm
+  version: 3.1.1
+  source: https://www.npmjs.com/package/path-key
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: picocolors
+  kind: npm
+  version: 1.1.1
+  source: https://www.npmjs.com/package/picocolors
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: picomatch
+  kind: npm
+  version: 4.0.7
+  source: https://www.npmjs.com/package/picomatch
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: playwright
+  kind: npm
+  version: 1.64.1
+  source: https://www.npmjs.com/package/playwright
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: playwright-core
+  kind: npm
+  version: 1.64.1
+  source: https://www.npmjs.com/package/playwright-core
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pluralize
+  kind: npm
+  version: 8.0.0
+  source: https://www.npmjs.com/package/pluralize
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: postcss
+  kind: npm
+  version: 8.5.31
+  source: https://www.npmjs.com/package/postcss
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: prelude-ls
+  kind: npm
+  version: 1.2.1
+  source: https://www.npmjs.com/package/prelude-ls
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: pretty-format
+  kind: npm
+  version: 27.5.1
+  source: https://www.npmjs.com/package/pretty-format
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: punycode
+  kind: npm
+  version: 2.3.1
+  source: https://www.npmjs.com/package/punycode
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: qified
+  kind: npm
+  version: 0.10.1
+  source: https://www.npmjs.com/package/qified
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: react
+  kind: npm
+  version: 19.3.1
+  source: https://www.npmjs.com/package/react
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: react-dom
+  kind: npm
+  version: 19.3.1
+  source: https://www.npmjs.com/package/react-dom
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: react-is
+  kind: npm
+  version: 17.0.2
+  source: https://www.npmjs.com/package/react-is
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: redent
+  kind: npm
+  version: 3.0.0
+  source: https://www.npmjs.com/package/redent
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: require-from-string
+  kind: npm
+  version: 2.0.2
+  source: https://www.npmjs.com/package/require-from-string
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: rolldown
+  kind: npm
+  version: 1.2.15
+  source: https://www.npmjs.com/package/rolldown
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: saxes
+  kind: npm
+  version: 6.0.0
+  source: https://www.npmjs.com/package/saxes
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: scheduler
+  kind: npm
+  version: 0.28.0
+  source: https://www.npmjs.com/package/scheduler
+  license: MIT
+  commercial_use: 'yes'
+  distributed: true
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: semver
+  kind: npm
+  version: 6.3.1, 7.8.5
+  source: https://www.npmjs.com/package/semver
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: shebang-command
+  kind: npm
+  version: 2.0.0
+  source: https://www.npmjs.com/package/shebang-command
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: shebang-regex
+  kind: npm
+  version: 3.0.0
+  source: https://www.npmjs.com/package/shebang-regex
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: source-map-js
+  kind: npm
+  version: 1.2.2
+  source: https://www.npmjs.com/package/source-map-js
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: std-env
+  kind: npm
+  version: 4.3.0
+  source: https://www.npmjs.com/package/std-env
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: strip-indent
+  kind: npm
+  version: 3.0.0
+  source: https://www.npmjs.com/package/strip-indent
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: supports-color
+  kind: npm
+  version: 10.2.2
+  source: https://www.npmjs.com/package/supports-color
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tinybench
+  kind: npm
+  version: 6.2.2
+  source: https://www.npmjs.com/package/tinybench
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tinyexec
+  kind: npm
+  version: 1.3.1
+  source: https://www.npmjs.com/package/tinyexec
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tinyglobby
+  kind: npm
+  version: 0.2.17
+  source: https://www.npmjs.com/package/tinyglobby
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tldts
+  kind: npm
+  version: 7.4.19
+  source: https://www.npmjs.com/package/tldts
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tldts-core
+  kind: npm
+  version: 7.4.19
+  source: https://www.npmjs.com/package/tldts-core
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tough-cookie
+  kind: npm
+  version: 6.0.2
+  source: https://www.npmjs.com/package/tough-cookie
+  license: BSD-3-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: tr46
+  kind: npm
+  version: 7.0.0
+  source: https://www.npmjs.com/package/tr46
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: ts-api-utils
+  kind: npm
+  version: 2.5.0
+  source: https://www.npmjs.com/package/ts-api-utils
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: type-check
+  kind: npm
+  version: 0.4.0
+  source: https://www.npmjs.com/package/type-check
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: type-fest
+  kind: npm
+  version: 4.41.0
+  source: https://www.npmjs.com/package/type-fest
+  license: (MIT OR CC0-1.0)
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: typescript
+  kind: npm
+  version: 5.9.3
+  source: https://www.npmjs.com/package/typescript
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: typescript-eslint
+  kind: npm
+  version: 8.72.0
+  source: https://www.npmjs.com/package/typescript-eslint
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: undici
+  kind: npm
+  version: 8.12.3
+  source: https://www.npmjs.com/package/undici
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: undici-types
+  kind: npm
+  version: 7.24.6
+  source: https://www.npmjs.com/package/undici-types
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: update-browserslist-db
+  kind: npm
+  version: 1.3.4
+  source: https://www.npmjs.com/package/update-browserslist-db
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: uri-js
+  kind: npm
+  version: 4.4.1
+  source: https://www.npmjs.com/package/uri-js
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: uri-js-replace
+  kind: npm
+  version: 1.0.2
+  source: https://www.npmjs.com/package/uri-js-replace
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: vite
+  kind: npm
+  version: 8.3.5
+  source: https://www.npmjs.com/package/vite
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: vitest
+  kind: npm
+  version: 5.0.5
+  source: https://www.npmjs.com/package/vitest
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: w3c-xmlserializer
+  kind: npm
+  version: 6.0.0
+  source: https://www.npmjs.com/package/w3c-xmlserializer
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: webidl-conversions
+  kind: npm
+  version: 8.0.1
+  source: https://www.npmjs.com/package/webidl-conversions
+  license: BSD-2-Clause
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: whatwg-mimetype
+  kind: npm
+  version: 5.0.0
+  source: https://www.npmjs.com/package/whatwg-mimetype
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: whatwg-url
+  kind: npm
+  version: 17.3.0
+  source: https://www.npmjs.com/package/whatwg-url
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: which
+  kind: npm
+  version: 2.0.2
+  source: https://www.npmjs.com/package/which
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: why-is-node-running
+  kind: npm
+  version: 3.2.1
+  source: https://www.npmjs.com/package/why-is-node-running
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: word-wrap
+  kind: npm
+  version: 1.2.5
+  source: https://www.npmjs.com/package/word-wrap
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: xml-name-validator
+  kind: npm
+  version: 5.0.0
+  source: https://www.npmjs.com/package/xml-name-validator
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: xmlchars
+  kind: npm
+  version: 2.2.0
+  source: https://www.npmjs.com/package/xmlchars
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: yallist
+  kind: npm
+  version: 3.1.1
+  source: https://www.npmjs.com/package/yallist
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: yaml-ast-parser
+  kind: npm
+  version: 0.0.43
+  source: https://www.npmjs.com/package/yaml-ast-parser
+  license: Apache-2.0
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: yargs-parser
+  kind: npm
+  version: 21.1.1
+  source: https://www.npmjs.com/package/yargs-parser
+  license: ISC
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: yocto-queue
+  kind: npm
+  version: 0.1.0
+  source: https://www.npmjs.com/package/yocto-queue
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: zod
+  kind: npm
+  version: 4.6.7
+  source: https://www.npmjs.com/package/zod
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata
+- name: zod-validation-error
+  kind: npm
+  version: 4.0.2
+  source: https://www.npmjs.com/package/zod-validation-error
+  license: MIT
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: permissive license per package metadata

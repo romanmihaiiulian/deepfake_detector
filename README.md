@@ -53,6 +53,18 @@ result = analyze_video("interview.mp4")
 print(result.verdict, result.manipulation_probability, result.confidence, result.video_quality)
 ```
 
+## Run the web app
+
+```sh
+make build-web && uv run deepfake-api        # API + UI on http://127.0.0.1:8000
+```
+
+For development, run `make dev-api` and `make dev-web` together, then open
+http://localhost:5173. Vite proxies `/api` to the API. Set `DFD_ANALYZER=fake` to work on
+the UI without model weights: results are then canned and clearly marked as demo results.
+The API is documented at `/api/docs`. Uploaded videos are deleted after analysis (see
+[docs/privacy.md](docs/privacy.md)).
+
 Read [docs/model-card.md](docs/model-card.md) before you rely on a result. Scores are
 uncalibrated, and GenD has known false positives on some real footage.
 

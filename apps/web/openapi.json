@@ -1,0 +1,1267 @@
+{
+  "components": {
+    "schemas": {
+      "AnalysisCreated": {
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "string"
+          },
+          "status": {
+            "const": "queued",
+            "default": "queued",
+            "title": "Status",
+            "type": "string"
+          },
+          "status_url": {
+            "title": "Status Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "analysis_id",
+          "status_url"
+        ],
+        "title": "AnalysisCreated",
+        "type": "object"
+      },
+      "AnalysisResult": {
+        "additionalProperties": false,
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "string"
+          },
+          "calibration": {
+            "$ref": "#/components/schemas/Calibration",
+            "default": {
+              "method": "none",
+              "note": "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16)."
+            }
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low"
+            ],
+            "title": "Confidence",
+            "type": "string"
+          },
+          "decision_thresholds": {
+            "$ref": "#/components/schemas/DecisionThresholds"
+          },
+          "detector_scores": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Detector Scores",
+            "type": "object"
+          },
+          "disclaimer": {
+            "default": "This is a probabilistic assessment produced by automated models, not proof of manipulation or of authenticity. It can be wrong, especially for low-quality or heavily compressed video. Do not use it as the sole basis for any decision about a person; when in doubt, verify identity through other means.",
+            "title": "Disclaimer",
+            "type": "string"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/EvidenceFrame"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "face_tracks": {
+            "title": "Face Tracks",
+            "type": "integer"
+          },
+          "manipulation_probability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Highest track score among eligible face tracks; None if no face qualified",
+            "title": "Manipulation Probability"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelInfo"
+            },
+            "title": "Models",
+            "type": "array"
+          },
+          "processing": {
+            "$ref": "#/components/schemas/ProcessingInfo"
+          },
+          "quality": {
+            "$ref": "#/components/schemas/QualityDetails"
+          },
+          "schema_version": {
+            "const": "1.0",
+            "default": "1.0",
+            "title": "Schema Version",
+            "type": "string"
+          },
+          "suspicious_intervals": {
+            "items": {
+              "$ref": "#/components/schemas/SuspiciousInterval"
+            },
+            "title": "Suspicious Intervals",
+            "type": "array"
+          },
+          "tracks": {
+            "items": {
+              "$ref": "#/components/schemas/TrackResult"
+            },
+            "title": "Tracks",
+            "type": "array"
+          },
+          "verdict": {
+            "enum": [
+              "authentic_likely",
+              "inconclusive",
+              "manipulated_likely"
+            ],
+            "title": "Verdict",
+            "type": "string"
+          },
+          "verdict_reasons": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Verdict Reasons",
+            "type": "array"
+          },
+          "video": {
+            "$ref": "#/components/schemas/VideoMetadata"
+          },
+          "video_quality": {
+            "enum": [
+              "good",
+              "fair",
+              "poor",
+              "insufficient"
+            ],
+            "title": "Video Quality",
+            "type": "string"
+          }
+        },
+        "required": [
+          "analysis_id",
+          "verdict",
+          "manipulation_probability",
+          "confidence",
+          "video_quality",
+          "face_tracks",
+          "detector_scores",
+          "suspicious_intervals",
+          "verdict_reasons",
+          "decision_thresholds",
+          "quality",
+          "tracks",
+          "evidence",
+          "video",
+          "models",
+          "processing"
+        ],
+        "title": "AnalysisResult",
+        "type": "object"
+      },
+      "AnalysisStatus": {
+        "properties": {
+          "analysis_id": {
+            "title": "Analysis Id",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "error": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/ErrorBody"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "expires_at": {
+            "format": "date-time",
+            "title": "Expires At",
+            "type": "string"
+          },
+          "progress": {
+            "title": "Progress",
+            "type": "number"
+          },
+          "result": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/AnalysisResult"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "stage": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Stage"
+          },
+          "status": {
+            "enum": [
+              "queued",
+              "processing",
+              "completed",
+              "failed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "analysis_id",
+          "status",
+          "stage",
+          "progress",
+          "created_at",
+          "updated_at",
+          "expires_at"
+        ],
+        "title": "AnalysisStatus",
+        "type": "object"
+      },
+      "Body_create_analysis_api_v1_analyses_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "description": "MP4, MOV or WEBM video",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_create_analysis_api_v1_analyses_post",
+        "type": "object"
+      },
+      "Calibration": {
+        "additionalProperties": false,
+        "properties": {
+          "method": {
+            "const": "none",
+            "default": "none",
+            "title": "Method",
+            "type": "string"
+          },
+          "note": {
+            "default": "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16).",
+            "title": "Note",
+            "type": "string"
+          }
+        },
+        "title": "Calibration",
+        "type": "object"
+      },
+      "DecisionThresholds": {
+        "additionalProperties": false,
+        "description": "The verdict bands applied to this video (they depend on its quality tier).",
+        "properties": {
+          "authentic": {
+            "description": "authentic_likely at or below this score",
+            "title": "Authentic",
+            "type": "number"
+          },
+          "manipulated": {
+            "description": "manipulated_likely at or above this score",
+            "title": "Manipulated",
+            "type": "number"
+          }
+        },
+        "required": [
+          "authentic",
+          "manipulated"
+        ],
+        "title": "DecisionThresholds",
+        "type": "object"
+      },
+      "ErrorBody": {
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "title": "ErrorBody",
+        "type": "object"
+      },
+      "ErrorResponse": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/ErrorBody"
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "ErrorResponse",
+        "type": "object"
+      },
+      "EvidenceFrame": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence_id": {
+            "title": "Evidence Id",
+            "type": "string"
+          },
+          "kind": {
+            "const": "face_crop",
+            "default": "face_crop",
+            "title": "Kind",
+            "type": "string"
+          },
+          "score": {
+            "title": "Score",
+            "type": "number"
+          },
+          "time": {
+            "title": "Time",
+            "type": "number"
+          },
+          "track_id": {
+            "title": "Track Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "evidence_id",
+          "track_id",
+          "time",
+          "score"
+        ],
+        "title": "EvidenceFrame",
+        "type": "object"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "title": "Detail",
+            "type": "array"
+          }
+        },
+        "title": "HTTPValidationError",
+        "type": "object"
+      },
+      "Health": {
+        "properties": {
+          "analyzer": {
+            "enum": [
+              "real",
+              "fake"
+            ],
+            "title": "Analyzer",
+            "type": "string"
+          },
+          "detail": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Detail"
+          },
+          "device": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Device"
+          },
+          "models_loaded": {
+            "title": "Models Loaded",
+            "type": "boolean"
+          },
+          "queue_depth": {
+            "title": "Queue Depth",
+            "type": "integer"
+          },
+          "status": {
+            "enum": [
+              "ok",
+              "loading",
+              "error"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "models_loaded",
+          "analyzer",
+          "device",
+          "queue_depth",
+          "version"
+        ],
+        "title": "Health",
+        "type": "object"
+      },
+      "ModelInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "license": {
+            "title": "License",
+            "type": "string"
+          },
+          "name": {
+            "title": "Name",
+            "type": "string"
+          },
+          "revision": {
+            "title": "Revision",
+            "type": "string"
+          },
+          "role": {
+            "title": "Role",
+            "type": "string"
+          },
+          "sha256": {
+            "title": "Sha256",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name",
+          "role",
+          "version",
+          "revision",
+          "sha256",
+          "license"
+        ],
+        "title": "ModelInfo",
+        "type": "object"
+      },
+      "ModelsResponse": {
+        "properties": {
+          "loaded": {
+            "title": "Loaded",
+            "type": "boolean"
+          },
+          "models": {
+            "items": {
+              "$ref": "#/components/schemas/ModelInfo"
+            },
+            "title": "Models",
+            "type": "array"
+          }
+        },
+        "required": [
+          "loaded",
+          "models"
+        ],
+        "title": "ModelsResponse",
+        "type": "object"
+      },
+      "ProcessingInfo": {
+        "additionalProperties": false,
+        "properties": {
+          "analyzer": {
+            "default": "real",
+            "enum": [
+              "real",
+              "fake"
+            ],
+            "title": "Analyzer",
+            "type": "string"
+          },
+          "config_hash": {
+            "title": "Config Hash",
+            "type": "string"
+          },
+          "config_profile": {
+            "title": "Config Profile",
+            "type": "string"
+          },
+          "device": {
+            "title": "Device",
+            "type": "string"
+          },
+          "duration_ms": {
+            "title": "Duration Ms",
+            "type": "number"
+          },
+          "faces_detected": {
+            "title": "Faces Detected",
+            "type": "integer"
+          },
+          "frames_decoded": {
+            "title": "Frames Decoded",
+            "type": "integer"
+          },
+          "frames_sampled": {
+            "title": "Frames Sampled",
+            "type": "integer"
+          },
+          "frames_scored": {
+            "title": "Frames Scored",
+            "type": "integer"
+          },
+          "pipeline_version": {
+            "title": "Pipeline Version",
+            "type": "string"
+          },
+          "sample_rate": {
+            "title": "Sample Rate",
+            "type": "number"
+          },
+          "stage_ms": {
+            "additionalProperties": {
+              "type": "number"
+            },
+            "title": "Stage Ms",
+            "type": "object"
+          },
+          "started_at": {
+            "format": "date-time",
+            "title": "Started At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "pipeline_version",
+          "config_profile",
+          "config_hash",
+          "device",
+          "sample_rate",
+          "frames_decoded",
+          "frames_sampled",
+          "faces_detected",
+          "frames_scored",
+          "started_at",
+          "duration_ms",
+          "stage_ms"
+        ],
+        "title": "ProcessingInfo",
+        "type": "object"
+      },
+      "QualityDetails": {
+        "additionalProperties": false,
+        "properties": {
+          "level": {
+            "enum": [
+              "good",
+              "fair",
+              "poor",
+              "insufficient"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "metrics": {
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "title": "Metrics",
+            "type": "object"
+          },
+          "reasons": {
+            "items": {
+              "$ref": "#/components/schemas/QualityReason"
+            },
+            "title": "Reasons",
+            "type": "array"
+          }
+        },
+        "required": [
+          "level",
+          "reasons",
+          "metrics"
+        ],
+        "title": "QualityDetails",
+        "type": "object"
+      },
+      "QualityReason": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "title": "Code",
+            "type": "string"
+          },
+          "level": {
+            "enum": [
+              "good",
+              "fair",
+              "poor",
+              "insufficient"
+            ],
+            "title": "Level",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "metric": {
+            "title": "Metric",
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "message",
+          "level",
+          "metric"
+        ],
+        "title": "QualityReason",
+        "type": "object"
+      },
+      "SuspiciousInterval": {
+        "additionalProperties": false,
+        "properties": {
+          "end": {
+            "title": "End",
+            "type": "number"
+          },
+          "peak": {
+            "title": "Peak",
+            "type": "number"
+          },
+          "score": {
+            "description": "Mean frame score inside the interval",
+            "title": "Score",
+            "type": "number"
+          },
+          "start": {
+            "description": "Seconds from the first frame",
+            "title": "Start",
+            "type": "number"
+          },
+          "track_id": {
+            "title": "Track Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "start",
+          "end",
+          "score",
+          "peak",
+          "track_id"
+        ],
+        "title": "SuspiciousInterval",
+        "type": "object"
+      },
+      "TimelinePoint": {
+        "additionalProperties": false,
+        "properties": {
+          "quality": {
+            "enum": [
+              "good",
+              "fair",
+              "poor",
+              "insufficient"
+            ],
+            "title": "Quality",
+            "type": "string"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "None when the frame was too poor to score",
+            "title": "Score"
+          },
+          "t": {
+            "title": "T",
+            "type": "number"
+          }
+        },
+        "required": [
+          "t",
+          "score",
+          "quality"
+        ],
+        "title": "TimelinePoint",
+        "type": "object"
+      },
+      "TrackResult": {
+        "additionalProperties": false,
+        "properties": {
+          "detections": {
+            "title": "Detections",
+            "type": "integer"
+          },
+          "eligible": {
+            "description": "Enough scorable frames to count towards the verdict",
+            "title": "Eligible",
+            "type": "boolean"
+          },
+          "end": {
+            "title": "End",
+            "type": "number"
+          },
+          "quality": {
+            "enum": [
+              "good",
+              "fair",
+              "poor",
+              "insufficient"
+            ],
+            "title": "Quality",
+            "type": "string"
+          },
+          "quality_reasons": {
+            "items": {
+              "$ref": "#/components/schemas/QualityReason"
+            },
+            "title": "Quality Reasons",
+            "type": "array"
+          },
+          "score": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Score"
+          },
+          "scored_frames": {
+            "title": "Scored Frames",
+            "type": "integer"
+          },
+          "start": {
+            "title": "Start",
+            "type": "number"
+          },
+          "timeline": {
+            "items": {
+              "$ref": "#/components/schemas/TimelinePoint"
+            },
+            "title": "Timeline",
+            "type": "array"
+          },
+          "track_id": {
+            "title": "Track Id",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "track_id",
+          "start",
+          "end",
+          "detections",
+          "scored_frames",
+          "score",
+          "eligible",
+          "quality",
+          "quality_reasons",
+          "timeline"
+        ],
+        "title": "TrackResult",
+        "type": "object"
+      },
+      "ValidationError": {
+        "properties": {
+          "ctx": {
+            "title": "Context",
+            "type": "object"
+          },
+          "input": {
+            "title": "Input"
+          },
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "title": "Location",
+            "type": "array"
+          },
+          "msg": {
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "title": "Error Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError",
+        "type": "object"
+      },
+      "VideoMetadata": {
+        "additionalProperties": false,
+        "properties": {
+          "bit_rate": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Bit Rate"
+          },
+          "codec": {
+            "title": "Codec",
+            "type": "string"
+          },
+          "container": {
+            "title": "Container",
+            "type": "string"
+          },
+          "duration": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Duration"
+          },
+          "fps_effective": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fps Effective"
+          },
+          "fps_nominal": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fps Nominal"
+          },
+          "has_audio": {
+            "title": "Has Audio",
+            "type": "boolean"
+          },
+          "height": {
+            "title": "Height",
+            "type": "integer"
+          },
+          "rotation": {
+            "title": "Rotation",
+            "type": "integer"
+          },
+          "width": {
+            "title": "Width",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "container",
+          "codec",
+          "width",
+          "height",
+          "rotation",
+          "duration",
+          "fps_nominal",
+          "fps_effective",
+          "bit_rate",
+          "has_audio"
+        ],
+        "title": "VideoMetadata",
+        "type": "object"
+      }
+    }
+  },
+  "info": {
+    "description": "Upload a video and receive a probabilistic assessment of face manipulation. Results are not proof and must not be the sole basis for decisions about people.",
+    "title": "Deepfake Detector API",
+    "version": "0.1.0"
+  },
+  "openapi": "3.1.0",
+  "paths": {
+    "/api/v1/analyses": {
+      "post": {
+        "operationId": "create_analysis_api_v1_analyses_post",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_create_analysis_api_v1_analyses_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "202": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisCreated"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Upload a video for analysis"
+      }
+    },
+    "/api/v1/analyses/{analysis_id}": {
+      "delete": {
+        "operationId": "delete_analysis_api_v1_analyses__analysis_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysis_id",
+            "required": true,
+            "schema": {
+              "title": "Analysis Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Delete a result and its evidence now"
+      },
+      "get": {
+        "operationId": "get_analysis_api_v1_analyses__analysis_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysis_id",
+            "required": true,
+            "schema": {
+              "title": "Analysis Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnalysisStatus"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "413": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Request Entity Too Large"
+          },
+          "415": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unsupported Media Type"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Unprocessable Entity"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Service Unavailable"
+          }
+        },
+        "summary": "Status and, once completed, the result"
+      }
+    },
+    "/api/v1/analyses/{analysis_id}/evidence/{evidence_id}": {
+      "get": {
+        "operationId": "get_evidence_api_v1_analyses__analysis_id__evidence__evidence_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "analysis_id",
+            "required": true,
+            "schema": {
+              "title": "Analysis Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "evidence_id",
+            "required": true,
+            "schema": {
+              "title": "Evidence Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "image/jpeg": {}
+            },
+            "description": "Successful Response"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            },
+            "description": "Not Found"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "An evidence face crop (JPEG)"
+      }
+    },
+    "/api/v1/health": {
+      "get": {
+        "operationId": "health_api_v1_health_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Liveness and model status"
+      }
+    },
+    "/api/v1/models": {
+      "get": {
+        "operationId": "list_models_api_v1_models_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ModelsResponse"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Models used for analysis"
+      }
+    }
+  }
+}

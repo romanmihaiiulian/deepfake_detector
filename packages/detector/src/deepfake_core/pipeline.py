@@ -41,6 +41,7 @@ from deepfake_core.quality import (
 from deepfake_core.quality.gate import QualityReason, reason_for
 from deepfake_core.schemas import (
     AnalysisResult,
+    DecisionThresholds,
     EvidenceFrame,
     ModelInfo,
     ProcessingInfo,
@@ -56,6 +57,7 @@ from deepfake_core.scoring import (
     FrameScore,
     Interval,
     TrackScore,
+    bands,
     decide,
     score_track,
     select_evidence,
@@ -387,6 +389,10 @@ class Analyzer:
                 for iv in intervals
             ],
             verdict_reasons=list(decision.reasons),
+            decision_thresholds=DecisionThresholds(
+                authentic=bands(overall.tier, config.verdict)[0],
+                manipulated=bands(overall.tier, config.verdict)[1],
+            ),
             quality=QualityDetails(
                 level=overall.tier.label,
                 reasons=_reasons_out(overall.reasons),

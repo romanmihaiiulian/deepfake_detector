@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := help
 .PHONY: help setup models fixtures lint format typecheck test test-models e2e licenses \
-        gen-api check dev-api dev-web build-web
+        gen-api api-schema check dev-api dev-web build-web
 
 UV  ?= uv
 WEB := apps/web
@@ -49,19 +49,26 @@ test-models:  ## only the tests that need model weights
 
 e2e:  ## Playwright end-to-end test against the API in fake-analyzer mode
 	npm --prefix $(WEB) run build
+	cd $(WEB) && npx playwright install chromium
 	npm --prefix $(WEB) run e2e
 
 licenses:  ## check dependencies/licenses.yml against installed packages
 	$(UV) run python tools/check_licenses.py
 
 gen-api:  ## regenerate the web app's API types from the FastAPI OpenAPI schema
-	$(UV) run python tools/export_openapi.py $(WEB)/openapi.json
+	$(UV) run python -m tools.export_openapi $(WEB)/openapi.json
 	npm --prefix $(WEB) run gen:api
 
-check: lint typecheck test licenses  ## everything CI would run
+api-schema:  ## fail if the committed OpenAPI schema or TypeScript types are stale
+	$(UV) run python -m tools.export_openapi $(WEB)/openapi.json --check
+ifneq ($(HAS_WEB),)
+	npm --prefix $(WEB) run check:api
+endif
 
-dev-api:  ## run the API with auto-reload on http://127.0.0.1:8000
-	$(UV) run uvicorn deepfake_api.main:create_app --factory --reload --host 127.0.0.1 --port 8000
+check: lint typecheck test licenses api-schema  ## everything CI would run
+
+dev-api:  ## run the API with auto-reload on http://127.0.0.1:8000 (DFD_ANALYZER=fake: no models)
+	$(UV) run deepfake-api --reload
 
 dev-web:  ## run the Vite dev server (proxies /api to dev-api)
 	npm --prefix $(WEB) run dev

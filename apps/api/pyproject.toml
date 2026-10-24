@@ -12,6 +12,9 @@ dependencies = [
     "uvicorn>=0.32",
 ]
 
+[project.scripts]
+deepfake-api = "deepfake_api.__main__:main"
+
 [tool.uv.sources]
 deepfake-core = { workspace = true }
 

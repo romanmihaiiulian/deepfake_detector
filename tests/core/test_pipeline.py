@@ -157,3 +157,13 @@ def test_real_models_end_to_end_is_deterministic(
     assert result.manipulation_probability is not None
     assert comparable(first.result) == comparable(second.result)
     assert first.evidence and first.evidence[0].jpeg[:2] == b"\xff\xd8"
+
+
+def test_decision_thresholds_follow_the_quality_tier(make_video: MakeVideo) -> None:
+    poor = make_video("clip.mp4", frames=100, fps=25, size=(320, 240))
+    result = analyzer(StubFaces(), [0.5] * 16).analyze(poor).result
+    assert result.video_quality == "poor"
+    assert (result.decision_thresholds.authentic, result.decision_thresholds.manipulated) == (
+        0.15,
+        0.90,
+    )
