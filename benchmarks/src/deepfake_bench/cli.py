@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import TYPE_CHECKING
 
@@ -123,6 +124,43 @@ def cmd_import(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_run(args: argparse.Namespace) -> int:
+    from deepfake_bench.run import Selection, run_benchmark
+    from deepfake_core.config import PipelineConfig
+    from deepfake_core.pipeline import Analyzer
+
+    registry = _registry(args)
+    generation = GenerationConfig.from_file(args.config)
+    pipeline = PipelineConfig.from_file(args.pipeline_config) if args.pipeline_config else None
+    splits = tuple(args.split or ["val", "test"]) + (("external",) if args.include_external else ())
+    selection = Selection(splits, tuple(args.transformation) if args.transformation else None)
+    run_id = args.run_id or datetime.now().strftime("%Y%m%d-%H%M%S")
+    summary = run_benchmark(
+        registry,
+        Analyzer(pipeline, device=args.device),
+        run_id,
+        selection,
+        held_out_swappers=generation.held_out_for_test,
+        save_traces=args.save_traces,
+    )
+    print(
+        f"run {run_id}: analysed {summary.analysed}, cached {summary.cached}, "
+        f"failed {len(summary.failed)} -> {summary.run_dir}"
+    )
+    return 0
+
+
+def cmd_report(args: argparse.Namespace) -> int:
+    from deepfake_bench.report import build_report
+
+    run_dir = LabPaths.resolve(args.data_root).runs / args.run_id
+    if not (run_dir / "predictions.jsonl").is_file():
+        raise LabError(f"no predictions in {run_dir}: run `dfbench run` first")
+    build_report(run_dir, bootstrap=args.bootstrap)
+    print(f"wrote {run_dir / 'report.md'} and {run_dir / 'report.json'}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="dfbench", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -163,6 +201,22 @@ def build_parser() -> argparse.ArgumentParser:
     imp.add_argument("csv")
     imp.add_argument("--dataset", required=True)
     imp.set_defaults(handler=cmd_import)
+
+    run = commands.add_parser("run", help="analyse samples and save predictions")
+    run.add_argument("--run-id")
+    run.add_argument("--split", action="append", choices=["train", "val", "test"])
+    run.add_argument("--transformation", action="append", help="default: all")
+    run.add_argument("--include-external", action="store_true")
+    run.add_argument("--save-traces", action="store_true", help="keep per-frame traces (step 14)")
+    run.add_argument("--pipeline-config", help="PipelineConfig overrides (YAML)")
+    run.add_argument("--device")
+    run.add_argument("--config", default=str(DEFAULT_GENERATION))
+    run.set_defaults(handler=cmd_run)
+
+    report = commands.add_parser("report", help="build the report for a run")
+    report.add_argument("run_id")
+    report.add_argument("--bootstrap", type=int, default=1000)
+    report.set_defaults(handler=cmd_report)
     return parser
 
 

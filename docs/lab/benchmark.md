@@ -61,3 +61,48 @@ separate `external` split: the "unseen tools" slice.
 | `split`, `research_only`, `status`, `status_reason` | |
 
 Identities are pseudonymous and carry only a `consent_ref`.
+
+## Running the benchmark
+
+```sh
+dfbench run --run-id 2026-10-24-baseline --save-traces   # val + test by default
+dfbench report 2026-10-24-baseline                        # data/bench/runs/<id>/report.md
+```
+
+`run` analyses each selected sample with the production pipeline (`Analyzer`). It writes
+`predictions.jsonl` and, with `--save-traces`, `traces/<sample_id>.npz`: per-frame
+timestamps, scores, quality tiers and GenD embeddings for each track, which is the input
+of the temporal model (step 14). Predictions are cached in `data/bench/cache/`, keyed by
+sample sha256, pipeline version, config hash and model checksums, so re-runs and new
+reports never redo work. `--pipeline-config` evaluates a candidate configuration, for
+example new thresholds.
+
+## Metrics (video level)
+
+| Metric | Notes |
+|---|---|
+| ROC-AUC, PR-AUC | Threshold-free ranking quality |
+| Precision, recall, F1, FPR, FNR | At the operating threshold of the evaluated config |
+| TPR at 1% and 5% FPR | The HR-relevant operating points |
+| ECE (15 bins), Brier | Calibration of the raw score; it is not calibrated yet (step 16) |
+| Flagged-real rate | Real videos whose verdict was `manipulated_likely`. This is the false accusation rate |
+| Cleared-fake rate, abstention rate, decided accuracy | Verdict-level behaviour, including `inconclusive` |
+| Paired win rate | Share of fakes that score above their own source video |
+
+95% confidence intervals come from a cluster bootstrap (1000 resamples of source videos).
+Expect wide intervals with few identities: they are reported precisely so that small
+benchmarks are not over-read.
+
+**Slices:** all, lab, each split, `identities:unseen` (test), each transformation and
+transformation group, each swapper, `settings:seen` and `settings:unseen` (held-out
+swappers, test only), `tool:<dataset>` (external datasets, i.e. unseen tools), predicted
+quality tier, and resolution bucket.
+
+**Threshold recommendation:** for each verdict band (`manipulated_threshold` on
+good/fair video, `poor_manipulated_threshold` on poor video), the report lists the
+threshold that keeps the FPR on **val** reals at 1% and at 5%. It marks a recommendation
+unreliable when there are too few val reals to resolve that rate. Test is never used to
+choose thresholds.
+
+**Aggregators:** mean (GenD's protocol), median and maximum 4 s window mean, compared on
+the same predictions. The window statistic exists to catch partial manipulations.

@@ -383,6 +383,7 @@ def import_external(registry: Registry, csv_path: Path, dataset: str) -> list[st
                 generator=dataset if label == "manipulated" else "none",
                 source_video=video_id,
                 target_identity=row.get("identity") or None,
+                generator_settings={"dataset": dataset},
                 resolution=f"{info.display_width}x{info.display_height}",
                 fps=info.fps,
                 duration=info.duration,
