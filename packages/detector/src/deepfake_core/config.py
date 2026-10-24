@@ -38,10 +38,51 @@ class SamplingConfig(_Section):
     )
 
 
+class Band(_Section):
+    """Tier boundaries for a metric: the value needed to reach GOOD, FAIR and POOR.
+
+    With `higher_is_better`, a value >= `good` is GOOD, and so on. Otherwise the
+    comparisons flip (value <= `good` is GOOD). Anything past `poor` is INSUFFICIENT.
+    """
+
+    good: float
+    fair: float
+    poor: float
+    higher_is_better: bool = True
+
+
+class RangeBand(_Section):
+    """Tier boundaries for a two-sided metric: the closed interval for each tier."""
+
+    good: tuple[float, float]
+    fair: tuple[float, float]
+    poor: tuple[float, float]
+
+
+class QualityConfig(_Section):
+    """Starting thresholds (profile uncalibrated-v0). M8 tunes them on degraded lab data."""
+
+    # video level
+    resolution_short_side: Band = Band(good=720, fair=480, poor=144)
+    effective_fps: Band = Band(good=20, fair=10, poor=2)
+    bits_per_pixel: Band = Band(good=0.05, fair=0.015, poor=0.0)
+    frame_availability: Band = Band(good=0.95, fair=0.8, poor=0.5)
+    # face level, measured per detection on the aligned crop
+    face_crop_size: Band = Band(good=200, fair=120, poor=64)
+    face_sharpness: Band = Band(good=60, fair=25, poor=8)
+    face_exposure: RangeBand = RangeBand(good=(60, 200), fair=(40, 220), poor=(20, 240))
+    face_clipped_fraction: Band = Band(good=0.05, fair=0.15, poor=0.35, higher_is_better=False)
+    face_contrast: Band = Band(good=30, fair=18, poor=8)
+    face_detector_score: Band = Band(good=0.9, fair=0.8, poor=0.6)
+    face_yaw: Band = Band(good=0.15, fair=0.3, poor=0.5, higher_is_better=False)
+    face_alignment_residual: Band = Band(good=0.03, fair=0.06, poor=0.1, higher_is_better=False)
+
+
 class PipelineConfig(_Section):
     profile: str = "uncalibrated-v0"
     validation: ValidationConfig = ValidationConfig()
     sampling: SamplingConfig = SamplingConfig()
+    quality: QualityConfig = QualityConfig()
 
     def config_hash(self) -> str:
         canonical = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))
