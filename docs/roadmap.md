@@ -5,19 +5,19 @@ Teams/Zoom HR product).
 
 | Step | Item | Status |
 |---:|---|---|
-| 1 | Repository, architecture, licensing | pass 1, M0 |
-| 2 | Video decoding | pass 1, M1 |
-| 3 | Deterministic frame sampling | pass 1, M1 |
-| 4 | Video quality analysis | pass 1, M2 |
-| 5 | Face detection | pass 1, M3 |
-| 6 | Persistent face tracking | pass 1, M3 |
-| 7 | Face alignment | pass 1, M3 |
-| 8 | GenD integration | pass 1, M4 |
-| 9 | GenD video-level aggregation | pass 1, M4 |
-| 10 | Basic web interface | pass 1, M5 |
-| 11 | FaceFusion dataset generator | pass 1, M6 |
-| 12 | Benchmark framework | pass 1, M7 |
-| 13 | Compression / conferencing benchmark | pass 1, M8 |
+| 1 | Repository, architecture, licensing | done (pass 1, M0) |
+| 2 | Video decoding | done (pass 1, M1) |
+| 3 | Deterministic frame sampling | done (pass 1, M1) |
+| 4 | Video quality analysis | done (pass 1, M2) |
+| 5 | Face detection | done (pass 1, M3) |
+| 6 | Persistent face tracking | done (pass 1, M3) |
+| 7 | Face alignment | done (pass 1, M3) |
+| 8 | GenD integration | done (pass 1, M4) |
+| 9 | GenD video-level aggregation | done (pass 1, M4) |
+| 10 | Basic web interface | done (pass 1, M5) |
+| 11 | FaceFusion dataset generator | done (pass 1, M6) |
+| 12 | Benchmark framework | done (pass 1, M7) |
+| 13 | Compression / conferencing benchmark | done (pass 1, M8) |
 | 14 | Temporal detector | later |
 | 15 | VLAForge escalation layer | later |
 | 16 | Fusion / probability calibration | later |

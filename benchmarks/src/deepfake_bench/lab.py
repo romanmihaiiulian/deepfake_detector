@@ -6,7 +6,7 @@ import csv
 import hashlib
 import json
 import shutil
-from collections.abc import Callable
+from collections.abc import Callable, Sequence
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -16,10 +16,10 @@ from pydantic import BaseModel, ConfigDict, Field
 from deepfake_bench.coverage import measure_coverage
 from deepfake_bench.donors import pick_donor_still
 from deepfake_bench.facefusion import FaceFusion, SwapSettings
-from deepfake_bench.manifest import Identity, Registry, Sample, SourceVideo, Split
+from deepfake_bench.manifest import Identity, Registry, Sample, SourceVideo, Split, utcnow
 from deepfake_bench.media import Encoded, canonicalize, sha256_of
 from deepfake_bench.splits import assign_splits, leakage_violations
-from deepfake_bench.variants import PROFILES, apply_profile
+from deepfake_bench.variants import PROFILES, ROBUSTNESS_PROFILES, apply_profile
 from deepfake_core.faces import FaceDetector
 from deepfake_core.video import validate
 
@@ -346,6 +346,82 @@ def generate(
     violations = leakage_violations(registry.ok_samples())
     if violations:
         raise LabError("split leakage detected: " + "; ".join(violations))
+    return report
+
+
+# --------------------------------------------------------------------------- robustness variants
+
+
+@dataclass(slots=True)
+class VariantReport:
+    created: list[str] = field(default_factory=list)
+    skipped: int = 0
+    missing_intermediate: list[str] = field(default_factory=list)
+
+
+def intermediate_for(registry: Registry, sample: Sample) -> Path:
+    """The near-lossless file a sample's pristine encode was made from."""
+    if sample.label == "real":
+        return registry.paths.canon / f"{sample.source_video}.mp4"
+    return registry.paths.raw_fakes / f"{sample.sample_id}.mp4"
+
+
+def create_variants(
+    registry: Registry,
+    profiles: Sequence[str] = ROBUSTNESS_PROFILES,
+    *,
+    splits: Sequence[Split] = ("val", "test"),
+    log: Log = print,
+) -> VariantReport:
+    """Re-encode every pristine lab sample with each robustness profile.
+
+    Both members of a pair start from their near-lossless intermediates and receive
+    identical recipes, so the degradation never becomes a label shortcut.
+    """
+    unknown = [name for name in profiles if name not in PROFILES]
+    if unknown:
+        raise LabError(f"unknown profiles {unknown}; choose from {sorted(PROFILES)}")
+    report = VariantReport()
+    parents = sorted(
+        (
+            s
+            for s in registry.ok_samples()
+            if s.transformation == "pristine" and s.parent_sample_id is None and s.split in splits
+        ),
+        key=lambda s: s.sample_id,
+    )
+    for parent in parents:
+        source = intermediate_for(registry, parent)
+        if not source.is_file():
+            report.missing_intermediate.append(parent.sample_id)
+            log(f"skip {parent.sample_id}: intermediate {source.name} is missing")
+            continue
+        for name in profiles:
+            sample_id = make_id("variant", parent.sample_id, name)
+            if sample_id in registry.samples:
+                report.skipped += 1
+                continue
+            log(f"variant {name:16} {parent.sample_id} ({parent.label})")
+            encoded = apply_profile(
+                PROFILES[name], source, registry.paths.samples / parent.sample_id / f"{name}.mp4"
+            )
+            registry.samples[sample_id] = parent.model_copy(
+                update={
+                    "sample_id": sample_id,
+                    "path": registry.paths.relative(encoded.path),
+                    "sha256": encoded.sha256,
+                    "resolution": f"{encoded.width}x{encoded.height}",
+                    "fps": encoded.fps,
+                    "duration": encoded.duration,
+                    "transformation": name,
+                    "transformation_argv": _portable(encoded.argv),
+                    "ffmpeg_version": encoded.ffmpeg_version,
+                    "parent_sample_id": parent.sample_id,
+                    "created_at": utcnow(),
+                }
+            )
+            registry.save()
+            report.created.append(sample_id)
     return report
 
 

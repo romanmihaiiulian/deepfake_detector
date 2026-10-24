@@ -106,3 +106,26 @@ choose thresholds.
 
 **Aggregators:** mean (GenD's protocol), median and maximum 4 s window mean, compared on
 the same predictions. The window statistic exists to catch partial manipulations.
+
+## Robustness variants (`dfbench variants`)
+
+Every pristine val and test sample is re-encoded with each profile. Each profile starts
+from the sample's own near-lossless intermediate, so both members of a pair get exactly
+the same recipe. The argv and the ffmpeg version are recorded, and the profiles involve
+no randomness.
+
+| Profile | What it simulates |
+|---|---|
+| `h264_crf23`, `h264_crf28`, `h264_crf35`, `h265_crf28` | Recompression (re-uploads, messaging apps) |
+| `res_1080p`, `res_720p`, `res_480p` | Downscaling, never upscaling |
+| `fps_30`, `fps_15` | Frame-rate conversion |
+| `crop_10`, `letterbox` | Reframing |
+| `screen_recording` | The call in a window on a 1080p desktop, captured by a screen recorder |
+| `conf_low`, `conf_medium`, `conf_high` | WebRTC-like call (realtime VP8 at 300/800/1500 kbps, 360p15/540p24/720p30), then re-encoded as the meeting recording |
+
+`dfbench variants --list` prints the profiles. The report adds a robustness table: AUC
+change vs pristine, **FPR on real videos** (by score and by verdict) and the quality-tier
+mix, per profile. A data-driven quality-threshold section bins real videos by each
+quality metric. It proposes a `quality-v1` POOR boundary only where every bin has at
+least 20 reals and false positives clearly rise at low quality. Otherwise the thresholds
+stay `uncalibrated-v0`, and the report says so.

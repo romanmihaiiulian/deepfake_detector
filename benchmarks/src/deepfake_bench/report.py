@@ -20,6 +20,7 @@ import numpy as np
 from deepfake_bench import metrics as m
 from deepfake_bench.run import load_predictions
 from deepfake_bench.slices import Record, build_slices
+from deepfake_core.config import QualityConfig
 
 FPR_TARGETS = (0.01, 0.05)
 AGGREGATORS = ("mean", "median", "window_max")
@@ -271,6 +272,8 @@ def _markdown(report: Mapping[str, Any]) -> str:
     else:
         lines.append("")
         lines.append("Not enough val samples with both classes for a recommendation.")
+    lines += _robustness_markdown(report)
+    lines += _quality_markdown(report)
     lines += [
         "",
         "## Plots",
@@ -283,13 +286,83 @@ def _markdown(report: Mapping[str, Any]) -> str:
         "",
     ]
     if (report.get("robustness") or {}).get("profiles"):
-        lines += [
-            "## Robustness (FPR on real videos per profile)",
-            "",
-            "![FPR by profile](fpr_by_profile.png)",
-            "",
-        ]
+        lines += ["![False positives by profile](fpr_by_profile.png)", ""]
     return "\n".join(lines)
+
+
+def _robustness_markdown(report: Mapping[str, Any]) -> list[str]:
+    profiles = (report.get("robustness") or {}).get("profiles") or {}
+    if not profiles:
+        return []
+    lines = [
+        "",
+        "## Robustness (lab, per encoding profile)",
+        "",
+        "False positives on real videos are the key HR risk: a candidate on a poor connection "
+        "must not look manipulated.",
+        "",
+        "| Profile | reals | fakes | ROC-AUC | Δ vs pristine | FPR on reals (score) "
+        "| flagged reals (verdict) | TPR@5%FPR | abstain | quality tiers |",
+        "|---|---:|---:|---:|---:|---:|---:|---:|---:|---|",
+    ]
+    for name, row in profiles.items():
+        tiers = ", ".join(f"{k} {v}" for k, v in sorted(row["quality_tiers"].items()))
+        lines.append(
+            f"| {name} | {row['n_real']} | {row['n_fake']} | {_fmt(row['roc_auc'])} "
+            f"| {_fmt(row['delta_roc_auc'])} | {_fmt(row['fpr_on_reals'])} "
+            f"| {_fmt(row['flagged_real_rate'])} | {_fmt(row['tpr_at_fpr_5pct'])} "
+            f"| {_fmt(row['abstention_rate'])} | {tiers} |"
+        )
+    return lines
+
+
+def _quality_markdown(report: Mapping[str, Any]) -> list[str]:
+    quality = report.get("quality_thresholds") or {}
+    metrics = quality.get("metrics") or {}
+    lines = ["", "## Quality thresholds (data-driven)", ""]
+    if not any(v.get("status") == "ok" for v in metrics.values()):
+        lines.append(
+            f"Not enough real videos per quality bin ({quality.get('n_real', 0)} reals in total; "
+            "each of 4 bins needs at least 20). The quality thresholds stay `uncalibrated-v0`."
+        )
+        return lines
+    lines += [
+        f"Overall FPR on lab reals: {_fmt(quality.get('baseline_fpr'))}. FPR on reals per "
+        "quartile of each metric, lowest quality first:",
+        "",
+        "| Metric | quartile → FPR on reals | suggested POOR below |",
+        "|---|---|---:|",
+    ]
+    tuned: dict[str, float] = {}
+    for metric, row in metrics.items():
+        if row["status"] != "ok":
+            lines.append(f"| {metric} | insufficient data ({row['n_real']} reals) | n/a |")
+            continue
+        cells = "; ".join(
+            f"[{_fmt(b['low'])}, {_fmt(b['high'])}] → {_fmt(b['fpr'])}" for b in row["bins"]
+        )
+        lines.append(f"| {metric} | {cells} | {_fmt(row['suggested_poor_below'])} |")
+        if row["suggested_poor_below"] is not None:
+            tuned[metric] = float(row["suggested_poor_below"])
+    if not tuned:
+        lines += ["", "No metric shows FPR clearly rising at low quality: thresholds unchanged."]
+        return lines
+    defaults = QualityConfig()
+    lines += [
+        "",
+        "Candidate profile `quality-v1` (review before adopting):",
+        "",
+        "```yaml",
+        "profile: quality-v1",
+        "quality:",
+    ]
+    for metric, poor in tuned.items():
+        band = getattr(defaults, metric)
+        fair = max(band.fair, poor)
+        good = max(band.good, fair)
+        lines.append(f"  {metric}: {{good: {good:g}, fair: {fair:g}, poor: {poor:g}}}")
+    lines.append("```")
+    return lines
 
 
 def _plots(records: Sequence[Record], out: Path, threshold: float) -> None:
@@ -366,6 +439,71 @@ def _plots(records: Sequence[Record], out: Path, threshold: float) -> None:
     plt.close(fig)
 
 
+QUALITY_TUNABLE = (
+    "resolution_short_side",
+    "effective_fps",
+    "bits_per_pixel",
+    "face_crop_size",
+    "face_sharpness",
+)
+
+
+def quality_analysis(
+    records: Sequence[Record], threshold: float, *, bins: int = 4, min_reals_per_bin: int = 20
+) -> dict[str, Any]:
+    """Where does the false-positive rate on real videos rise as quality drops?
+
+    Real lab videos (pristine and variants) are binned by quantiles of each quality
+    metric. A POOR boundary is suggested only when every bin holds `min_reals_per_bin`
+    reals and the lowest bins' FPR clearly exceeds the overall FPR (twice it, and at
+    least 5 points above). Otherwise the metric keeps its `uncalibrated-v0` band.
+    """
+    reals = [
+        r
+        for r in records
+        if r.get("dataset", "lab") == "lab" and r["label"] == "real" and r.get("score") is not None
+    ]
+    flagged = [float(r["score"]) >= threshold for r in reals]
+    baseline = float(np.mean(flagged)) if reals else None
+    out: dict[str, Any] = {"baseline_fpr": _round(baseline), "n_real": len(reals), "metrics": {}}
+    for metric in QUALITY_TUNABLE:
+        pairs = [
+            (float(v), f)
+            for r, f in zip(reals, flagged, strict=True)
+            if (v := (r.get("quality_metrics") or {}).get(metric)) is not None
+        ]
+        if len(pairs) < bins * min_reals_per_bin or baseline is None:
+            out["metrics"][metric] = {"status": "insufficient data", "n_real": len(pairs)}
+            continue
+        values = np.array([v for v, _ in pairs])
+        hits = np.array([f for _, f in pairs], dtype=float)
+        edges = np.quantile(values, np.linspace(0, 1, bins + 1))
+        rows = []
+        suggestion = None
+        rising = True
+        for i, (low, high) in enumerate(itertools.pairwise(edges)):
+            inside = (values >= low) & ((values < high) if i < bins - 1 else (values <= high))
+            fpr = float(hits[inside].mean()) if inside.any() else 0.0
+            rows.append(
+                {
+                    "low": _round(float(low)),
+                    "high": _round(float(high)),
+                    "n_real": int(inside.sum()),
+                    "fpr": _round(fpr),
+                }
+            )
+            if rising and fpr > max(2 * baseline, baseline + 0.05):
+                suggestion = float(high)
+            else:
+                rising = False
+        out["metrics"][metric] = {
+            "status": "ok",
+            "bins": rows,
+            "suggested_poor_below": _round(suggestion),
+        }
+    return out
+
+
 def build_report(run_dir: Path, *, bootstrap: int = 1000, seed: int = 0) -> dict[str, Any]:
     run = json.loads((run_dir / "run.json").read_text())
     records = load_predictions(run_dir)
@@ -390,6 +528,7 @@ def build_report(run_dir: Path, *, bootstrap: int = 1000, seed: int = 0) -> dict
         "recommendations": recommend_thresholds(records),
     }
     report["robustness"] = robustness(records, threshold)
+    report["quality_thresholds"] = quality_analysis(records, threshold)
     (run_dir / "report.json").write_text(json.dumps(report, indent=2, default=str))
     scored = [r for r in records if r.get("score") is not None]
     if scored:

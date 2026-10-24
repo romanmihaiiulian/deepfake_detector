@@ -23,6 +23,7 @@ from deepfake_bench.lab import (
     add_identity,
     add_source,
     assign_identity_splits,
+    create_variants,
     delete_identity,
     generate,
     import_external,
@@ -124,6 +125,23 @@ def cmd_import(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_variants(args: argparse.Namespace) -> int:
+    from deepfake_bench.variants import PROFILES, ROBUSTNESS_PROFILES
+
+    if args.list:
+        for name, profile in PROFILES.items():
+            print(f"{name:17} {profile.description}")
+        return 0
+    profiles = tuple(args.profile) if args.profile else ROBUSTNESS_PROFILES
+    splits = tuple(args.split or ["val", "test"])
+    report = create_variants(_registry(args), profiles, splits=splits)
+    print(
+        f"created {len(report.created)}, already present {report.skipped}, "
+        f"missing intermediates {len(report.missing_intermediate)}"
+    )
+    return 0
+
+
 def cmd_run(args: argparse.Namespace) -> int:
     from deepfake_bench.run import Selection, run_benchmark
     from deepfake_core.config import PipelineConfig
@@ -201,6 +219,12 @@ def build_parser() -> argparse.ArgumentParser:
     imp.add_argument("csv")
     imp.add_argument("--dataset", required=True)
     imp.set_defaults(handler=cmd_import)
+
+    variants = commands.add_parser("variants", help="create robustness variants of lab samples")
+    variants.add_argument("--profile", action="append", help="default: every robustness profile")
+    variants.add_argument("--split", action="append", choices=["train", "val", "test"])
+    variants.add_argument("--list", action="store_true", help="list the profiles and exit")
+    variants.set_defaults(handler=cmd_variants)
 
     run = commands.add_parser("run", help="analyse samples and save predictions")
     run.add_argument("--run-id")

@@ -125,6 +125,7 @@ def prediction_record(
         "verdict": result.verdict,
         "confidence": result.confidence,
         "video_quality": result.video_quality,
+        "quality_metrics": dict(result.quality.metrics),
         "face_tracks": result.face_tracks,
         "frames_scored": result.processing.frames_scored,
         "seconds": round(seconds, 2),

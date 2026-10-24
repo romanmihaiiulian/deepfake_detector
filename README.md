@@ -68,6 +68,23 @@ The API is documented at `/api/docs`. Uploaded videos are deleted after analysis
 Read [docs/model-card.md](docs/model-card.md) before you rely on a result. Scores are
 uncalibrated, and GenD has known false positives on some real footage.
 
+## Attack lab and benchmark
+
+The internal lab generates paired real/face-swapped videos from **consented** recordings
+with FaceFusion (run as an external tool). It then measures the detector, including under
+compression, screen-recording and video-conferencing degradation:
+
+```sh
+tools/install_facefusion.sh && export FACEFUSION_HOME=~/.local/share/deepfake-lab/facefusion
+uv run dfbench identity add p0001 --consent-ref CONSENT-2026-001
+uv run dfbench source add recording.mp4 --identity p0001     # ... more people
+uv run dfbench split && uv run dfbench generate && uv run dfbench variants
+uv run dfbench run --run-id baseline --save-traces && uv run dfbench report baseline
+```
+
+See [docs/lab/data-collection.md](docs/lab/data-collection.md) (consent rules) and
+[docs/lab/benchmark.md](docs/lab/benchmark.md) (design, metrics, slices).
+
 ## Licensing
 
 All code is Apache-2.0 (see [LICENSE](LICENSE) and [NOTICE](NOTICE)). The model weights
