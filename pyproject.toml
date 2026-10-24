@@ -40,6 +40,7 @@ known-first-party = ["deepfake_core", "deepfake_api", "deepfake_bench", "tools"]
 [tool.mypy]
 python_version = "3.12"
 strict = true
+plugins = ["pydantic.mypy"]
 files = ["packages/detector/src", "apps/api/src", "benchmarks/src", "tools"]
 warn_unreachable = true
 
