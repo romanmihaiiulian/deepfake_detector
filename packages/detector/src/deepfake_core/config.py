@@ -38,6 +38,29 @@ class SamplingConfig(_Section):
     )
 
 
+class DetectionConfig(_Section):
+    input_long_side: int = Field(default=640, gt=0, description="Frames are downscaled to this")
+    score_threshold: float = Field(default=0.7, ge=0, le=1)
+    nms_threshold: float = Field(default=0.3, ge=0, le=1)
+    max_faces: int = Field(default=8, gt=0, description="Largest faces kept per frame")
+
+
+class TrackingConfig(_Section):
+    max_gap_s: float = Field(default=2.0, gt=0, description="A track survives this long unseen")
+    min_iou: float = Field(default=0.1, ge=0, le=1)
+    max_center_distance: float = Field(
+        default=0.75, gt=0, description="Gate on centre distance, in predicted box sizes"
+    )
+    max_scale_change: float = Field(default=2.0, gt=1, description="Gate on box area ratio")
+    min_detections: int = Field(default=4, gt=0, description="Shorter tracks are dropped")
+    velocity_smoothing: float = Field(default=0.5, ge=0, lt=1)
+
+
+class AlignmentConfig(_Section):
+    scale: float = Field(default=1.3, gt=1, description="GenD margin: crop side / face scale")
+    model_input: int = Field(default=224, gt=0)
+
+
 class Band(_Section):
     """Tier boundaries for a metric: the value needed to reach GOOD, FAIR and POOR.
 
@@ -83,6 +106,9 @@ class PipelineConfig(_Section):
     validation: ValidationConfig = ValidationConfig()
     sampling: SamplingConfig = SamplingConfig()
     quality: QualityConfig = QualityConfig()
+    detection: DetectionConfig = DetectionConfig()
+    tracking: TrackingConfig = TrackingConfig()
+    alignment: AlignmentConfig = AlignmentConfig()
 
     def config_hash(self) -> str:
         canonical = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))

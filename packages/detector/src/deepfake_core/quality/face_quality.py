@@ -28,6 +28,21 @@ FACE_METRICS = (
 )
 
 
+# The face itself inside an aligned crop: the template's eyes sit at about 0.37/0.63 of the
+# width and its mouth at 0.78 of the height. Photometric metrics are measured here, so a
+# bright wall or a white collar at the crop margin doesn't count as a badly lit face.
+FACE_ROI = (slice(0.22, 0.86), slice(0.22, 0.78))
+
+
+def face_region(image: npt.NDArray[np.float32]) -> npt.NDArray[np.float32]:
+    rows, cols = FACE_ROI
+    height, width = image.shape[:2]
+    return image[
+        int(rows.start * height) : int(rows.stop * height),
+        int(cols.start * width) : int(cols.stop * width),
+    ]
+
+
 def luminance(rgb: npt.NDArray[np.uint8]) -> npt.NDArray[np.float32]:
     """BT.601 luma in [0, 255]."""
     weights = np.array([0.299, 0.587, 0.114], dtype=np.float32)
@@ -69,12 +84,13 @@ def face_metrics(
     alignment_residual: float,
 ) -> dict[str, float | None]:
     gray = luminance(crop)
+    face = face_region(gray)
     return {
         "face_crop_size": crop_size,
-        "face_sharpness": sharpness(gray),
-        "face_exposure": float(gray.mean()),
-        "face_clipped_fraction": float(np.mean((gray <= 5) | (gray >= 250))),
-        "face_contrast": float(gray.std()),
+        "face_sharpness": sharpness(face),
+        "face_exposure": float(face.mean()),
+        "face_clipped_fraction": float(np.mean((face <= 5) | (face >= 250))),
+        "face_contrast": float(face.std()),
         "face_detector_score": detector_score,
         "face_yaw": yaw_proxy(landmarks),
         "face_alignment_residual": alignment_residual,

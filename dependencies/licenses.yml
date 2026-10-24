@@ -129,6 +129,17 @@ entries:
   review_date: 2026-10-24
   notes: Not downloaded by this project. GenD and VLAForge were trained on it. GenD's sample crops (derived
     from FF++ and Celeb-DF) are fetched at test time by the fidelity test and never committed.
+- name: 'Test fixtures: NASA portraits (Ellen Ochoa, Mae Jemison, Neil Armstrong)'
+  kind: dataset
+  version: wikimedia-commons-2026-10-24
+  source: https://commons.wikimedia.org/wiki/File:Ellen_Ochoa.jpg
+  license: LicenseRef-Public-Domain-US-Government
+  commercial_use: 'yes'
+  distributed: false
+  review_date: 2026-10-24
+  notes: NASA photographs, public domain as US federal government works. Downloaded by `make fixtures`
+    (tools/fetch_fixtures.py, sha256-pinned), never committed. Used only to test detection, tracking and
+    alignment; never manipulated.
 - name: WIDER FACE
   kind: dataset
   version: '1.0'
