@@ -479,11 +479,13 @@ class PurgeReport:
     samples: int = 0
     files: int = 0
     predictions: int = 0
+    temporal_models: int = 0
 
 
 def delete_identity(registry: Registry, identity_id: str) -> PurgeReport:
     """Remove an identity and everything derived from it: sources, intermediates, samples
-    and their variants, donor stills, benchmark predictions and traces."""
+    and their variants, donor stills, benchmark predictions and traces, and temporal
+    models trained or validated on it."""
     if identity_id not in registry.identities:
         raise LabError(f"unknown identity {identity_id}")
     report = PurgeReport()
@@ -523,6 +525,11 @@ def delete_identity(registry: Registry, identity_id: str) -> PurgeReport:
             predictions.write_text("".join(f"{line}\n" for line in kept))
         for sample_id in doomed:
             remove(run / "traces" / f"{sample_id}.npz")
+    for record in paths.temporal.glob("*.json"):
+        if identity_id in json.loads(record.read_text()).get("identities", []):
+            remove(record.with_suffix(".safetensors"))
+            remove(record)
+            report.temporal_models += 1
     del registry.identities[identity_id]
     registry.save()
     return report

@@ -14,7 +14,7 @@ from pathlib import Path
 from typing import Literal
 
 import yaml
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class _Section(BaseModel):
@@ -110,8 +110,9 @@ class GenDConfig(_Section):
 
 
 class AggregationConfig(_Section):
-    track_score: Literal["mean", "median", "window_max"] = Field(
-        default="mean", description="GenD protocol: mean of frame probabilities"
+    track_score: Literal["mean", "median", "window_max", "temporal"] = Field(
+        default="mean",
+        description="GenD protocol: mean of frame probabilities ('temporal': step-14 model)",
     )
     min_scored_frames: int = Field(default=8, gt=0, description="Eligibility: ~2 s at 4 Hz")
     window_s: float = Field(default=4.0, gt=0, description="Window for the window_max statistic")
@@ -121,6 +122,13 @@ class AggregationConfig(_Section):
     interval_smoothing: int = Field(default=3, ge=1, description="Median filter width (samples)")
     evidence_count: int = Field(default=4, ge=0)
     evidence_min_separation_s: float = Field(default=1.0, ge=0)
+
+
+class TemporalConfig(_Section):
+    """The step-14 temporal model. Off unless a checkpoint trained with `dfbench temporal
+    train` is configured; its score is then reported as `detector_scores.temporal`."""
+
+    checkpoint: str | None = Field(default=None, description="Temporal model (.safetensors)")
 
 
 class VerdictConfig(_Section):
@@ -154,7 +162,14 @@ class PipelineConfig(_Section):
     alignment: AlignmentConfig = AlignmentConfig()
     gend: GenDConfig = GenDConfig()
     aggregation: AggregationConfig = AggregationConfig()
+    temporal: TemporalConfig = TemporalConfig()
     verdict: VerdictConfig = VerdictConfig()
+
+    @model_validator(mode="after")
+    def _temporal_needs_checkpoint(self) -> PipelineConfig:
+        if self.aggregation.track_score == "temporal" and not self.temporal.checkpoint:
+            raise ValueError("aggregation.track_score 'temporal' needs temporal.checkpoint")
+        return self
 
     def config_hash(self) -> str:
         canonical = json.dumps(self.model_dump(mode="json"), sort_keys=True, separators=(",", ":"))

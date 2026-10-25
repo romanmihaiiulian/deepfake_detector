@@ -81,9 +81,12 @@ def cache_key(sample: Sample, identity: dict[str, Any]) -> str:
 
 
 def aggregates(output: AnalysisOutput, window_s: float = 4.0) -> dict[str, float | None]:
-    """Video-level score under each candidate aggregator (max over eligible tracks)."""
+    """Video-level score under each candidate aggregator (max over eligible tracks), plus
+    the temporal model's when the analyzer has one."""
     eligible = {t.track_id for t in output.result.tracks if t.eligible}
     best: dict[str, float | None] = {"mean": None, "median": None, "window_max": None}
+    if "temporal" in output.result.detector_scores:
+        best["temporal"] = output.result.detector_scores["temporal"]
     for track in output.trace.tracks:
         if track.track_id not in eligible:
             continue

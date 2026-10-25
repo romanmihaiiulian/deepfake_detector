@@ -22,7 +22,8 @@ the record-keeping, but it cannot check the consent itself.
    gitignored, mode 0700). It never touches the API's `var/` directory or user uploads.
 5. **Withdrawal.** `dfbench identity delete <id> --yes` deletes the person's source
    videos, intermediates, donor stills, every sample derived from them (as donor or as
-   target), and their benchmark predictions and traces.
+   target), their benchmark predictions and traces, and every temporal-model checkpoint
+   trained or validated on them.
 6. **Swapper licenses.** Most FaceFusion swapper models are non-commercial or research-only.
    Each sample records `swapper_license`. Only samples with a commercially usable swapper
    (currently `ghost_*`, Apache-2.0) may ever be considered for a commercial training set,

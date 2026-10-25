@@ -6,6 +6,8 @@ dfbench source add VIDEO --identity ID        register a consented source video
 dfbench split                                 assign identities to train/val/test
 dfbench generate [--fake-facefusion]          real + FaceFusion samples (pristine)
 dfbench import CSV --dataset NAME             evaluation-only external dataset
+dfbench variants | run | report               robustness variants, benchmark runs, reports
+dfbench temporal train RUN | eval RUN --checkpoint NAME   temporal model (step 14)
 """
 
 from __future__ import annotations
@@ -71,7 +73,8 @@ def cmd_identity(args: argparse.Namespace) -> int:
         report = delete_identity(registry, args.identity_id)
         print(
             f"deleted {args.identity_id}: {report.sources} sources, {report.samples} samples, "
-            f"{report.files} files, {report.predictions} predictions"
+            f"{report.files} files, {report.predictions} predictions, "
+            f"{report.temporal_models} temporal models"
         )
     return 0
 
@@ -179,6 +182,39 @@ def cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_temporal(args: argparse.Namespace) -> int:
+    from deepfake_bench import temporal
+
+    paths = LabPaths.resolve(args.data_root)
+    run_dir = paths.runs / args.run_id
+    if not (run_dir / "predictions.jsonl").is_file():
+        raise LabError(f"no predictions in {run_dir}: run `dfbench run --save-traces` first")
+    if args.action == "train":
+        config = temporal.TrainConfig(
+            arch=args.arch,
+            window=args.window,
+            stride=args.stride or max(1, args.window // 2),
+            epochs=args.epochs,
+            seed=args.seed,
+            device=args.device or "cpu",
+        )
+        result = temporal.train(run_dir, paths.temporal, config, name=args.name)
+        print(
+            f"best epoch {result.best_epoch}: val AUC {result.val_auc} "
+            f"(untrained baseline {result.baseline_val_auc}) -> {result.checkpoint}"
+        )
+        return 0
+    checkpoint = Path(args.checkpoint)
+    if not checkpoint.is_file():
+        checkpoint = paths.temporal / f"{args.checkpoint}.safetensors"
+    if not checkpoint.is_file():
+        raise LabError(f"no temporal checkpoint {args.checkpoint}")
+    report = temporal.evaluate(run_dir, checkpoint, bootstrap=args.bootstrap)
+    out = run_dir / "temporal" / report["checkpoint"]["name"]
+    print(f"wrote {out / 'report.md'} and {out / 'report.json'}")
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="dfbench", description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
@@ -241,6 +277,20 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("run_id")
     report.add_argument("--bootstrap", type=int, default=1000)
     report.set_defaults(handler=cmd_report)
+
+    temporal = commands.add_parser("temporal", help="train or evaluate the temporal model")
+    temporal.add_argument("action", choices=["train", "eval"])
+    temporal.add_argument("run_id", help="a run made with --save-traces over train/val/test")
+    temporal.add_argument("--name", help="checkpoint name (default ARCH-RUN-sSEED)")
+    temporal.add_argument("--arch", choices=["tcn", "transformer"], default="tcn")
+    temporal.add_argument("--window", type=int, default=16, help="samples per window")
+    temporal.add_argument("--stride", type=int, help="default: half the window")
+    temporal.add_argument("--epochs", type=int, default=40)
+    temporal.add_argument("--seed", type=int, default=0)
+    temporal.add_argument("--device")
+    temporal.add_argument("--checkpoint", help="eval: checkpoint name or .safetensors path")
+    temporal.add_argument("--bootstrap", type=int, default=1000)
+    temporal.set_defaults(handler=cmd_temporal)
     return parser
 
 
@@ -251,6 +301,8 @@ def main(argv: list[str] | None = None) -> int:
         parser.error("identity add/delete needs an identity ID")
     if args.command == "source" and args.action == "add" and not (args.video and args.identity):
         parser.error("source add needs VIDEO and --identity")
+    if args.command == "temporal" and args.action == "eval" and not args.checkpoint:
+        parser.error("temporal eval needs --checkpoint")
     try:
         result: int = args.handler(args)
         return result

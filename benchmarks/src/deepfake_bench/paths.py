@@ -49,6 +49,11 @@ class LabPaths:
     def runs(self) -> Path:
         return self.root / "bench" / "runs"
 
+    @property
+    def temporal(self) -> Path:
+        """Temporal-model checkpoints trained on lab traces, with their training records."""
+        return self.root / "bench" / "temporal"
+
     def ensure(self) -> LabPaths:
         for directory in (
             self.registry,

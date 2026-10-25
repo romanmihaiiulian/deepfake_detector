@@ -3,7 +3,8 @@
 GenD scores a video as the mean of its frame probabilities, and that is the default track
 score. Median, p90 and the maximum `window_s` window mean are kept as well, so the
 benchmark can pick the best aggregator with data (a partial manipulation can hide in a
-long mean). The video probability is the maximum over eligible tracks, because one
+long mean). With a temporal model configured (step 14), its track score is one more
+candidate. The video probability is the maximum over eligible tracks, because one
 manipulated face is enough.
 
 Quality enters in exactly one place: a track is eligible only if it has enough scored
@@ -44,9 +45,16 @@ class TrackScore:
     iqr: float | None
     eligible: bool
     timeline: tuple[FrameScore, ...]
+    temporal: float | None = None
+    """Temporal-model score (step 14); None when no temporal model is configured."""
 
     def score(self, method: str) -> float | None:
-        return {"mean": self.mean, "median": self.median, "window_max": self.window_max}[method]
+        return {
+            "mean": self.mean,
+            "median": self.median,
+            "window_max": self.window_max,
+            "temporal": self.temporal,
+        }[method]
 
 
 def window_max_mean(times: Sequence[float], scores: Sequence[float], window: float) -> float | None:
@@ -68,6 +76,8 @@ def score_track(
     frames: Sequence[FrameScore],
     quality: Grade,
     config: AggregationConfig,
+    *,
+    temporal: float | None = None,
 ) -> TrackScore:
     ordered = tuple(sorted(frames, key=lambda f: f.time))
     scored = [(f.time, f.p_fake) for f in ordered if f.p_fake is not None]
@@ -98,6 +108,7 @@ def score_track(
         iqr=iqr,
         eligible=eligible,
         timeline=ordered,
+        temporal=temporal,
     )
 
 

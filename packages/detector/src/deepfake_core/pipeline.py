@@ -1,7 +1,8 @@
 """The analysis pipeline: one streaming pass over the video, then aggregation.
 
     validate → decode + sample → detect → track → align → face quality → GenD (batched)
-             → track scores → video probability → quality gate → verdict
+             → track scores (+ temporal model, when configured) → video probability
+             → quality gate → verdict
              → intervals → evidence
 
 `Analyzer` loads the models once and is reused across videos. It is not thread-safe:
@@ -17,6 +18,7 @@ from collections import defaultdict
 from collections.abc import Callable, Sequence
 from dataclasses import dataclass
 from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
 import numpy as np
 import numpy.typing as npt
@@ -24,6 +26,7 @@ import numpy.typing as npt
 from deepfake_core import __version__
 from deepfake_core.config import PipelineConfig
 from deepfake_core.detectors.base import FrameDetector
+from deepfake_core.errors import ModelIntegrityError
 from deepfake_core.faces import FaceDetector, FaceTracker, YuNetDetector, align_face, model_input
 from deepfake_core.models import GEND, YUNET, ModelSpec, models_dir
 from deepfake_core.quality import (
@@ -67,6 +70,9 @@ from deepfake_core.scoring import (
 from deepfake_core.video import VideoReader, validate
 from deepfake_core.video.decode import DecodeStats
 from deepfake_core.video.probe import VideoInfo
+
+if TYPE_CHECKING:
+    from deepfake_core.temporal import TemporalScorer
 
 ProgressCallback = Callable[[str, float], None]
 
@@ -173,6 +179,17 @@ class Analyzer:
         self.frame_detector: FrameDetector = frame_detector
         self.device = str(getattr(frame_detector, "device", "cpu"))
         self.models = list(models) if models is not None else [model_info(YUNET), model_info(GEND)]
+        self.temporal: TemporalScorer | None = None
+        if self.config.temporal.checkpoint:
+            from deepfake_core.temporal import TemporalScorer
+
+            self.temporal = TemporalScorer(self.config.temporal.checkpoint)
+            frame_model = next((m for m in self.models if m.role == "frame_detector"), None)
+            if frame_model is None or frame_model.sha256 != self.temporal.embedding_model_sha256:
+                raise ModelIntegrityError(
+                    "the temporal model was trained on embeddings of a different frame model"
+                )
+            self.models.append(self.temporal.info)
 
     def warmup(self) -> None:
         warm = getattr(self.frame_detector, "warmup", None)
@@ -322,15 +339,39 @@ class Analyzer:
             if final is not None:
                 by_track[final].append(obs)
 
+        traces = {
+            track_id: self._trace_track(track_id, by_track[track_id])
+            for track_id in sorted(by_track)
+        }
         tracks: list[TrackScore] = []
         for track_id in sorted(by_track):
             members = sorted(by_track[track_id], key=lambda o: o.time)
             frames = [FrameScore(o.time, o.p_fake, o.quality.tier) for o in members]
+            temporal = None
+            if self.temporal is not None:
+                arrays = traces[track_id]
+                scored = self.temporal.score(arrays.times, arrays.p_fake, arrays.embeddings)
+                temporal = scored.score if scored is not None else None
             tracks.append(
-                score_track(track_id, frames, self._track_quality(members), config.aggregation)
+                score_track(
+                    track_id,
+                    frames,
+                    self._track_quality(members),
+                    config.aggregation,
+                    temporal=temporal,
+                )
             )
 
-        probability, decisive = video_probability(tracks, config.aggregation.track_score)
+        method = config.aggregation.track_score
+        probability, decisive = video_probability(tracks, method)
+        detector_scores: dict[str, float] = {}
+        gend, _ = video_probability(tracks, "mean" if method == "temporal" else method)
+        if gend is not None:
+            detector_scores["gend"] = round(gend, 4)
+        if self.temporal is not None:
+            temporal_video, _ = video_probability(tracks, "temporal")
+            if temporal_video is not None:
+                detector_scores["temporal"] = round(temporal_video, 4)
         video_grade = grade_video(info, stats, config.quality)
         if decisive is not None:
             overall = combine(video_grade, decisive.quality)
@@ -377,7 +418,7 @@ class Analyzer:
             confidence=decision.confidence,
             video_quality=overall.tier.label,
             face_tracks=len(tracks),
-            detector_scores={} if probability is None else {"gend": round(probability, 4)},
+            detector_scores=detector_scores,
             suspicious_intervals=[
                 SuspiciousInterval(
                     start=round(iv.start, 3),
@@ -454,12 +495,7 @@ class Analyzer:
                 stage_ms={},
             ),
         )
-        trace = AnalysisTrace(
-            sample_rate=stats.sample_rate,
-            tracks=tuple(
-                self._trace_track(track_id, by_track[track_id]) for track_id in sorted(by_track)
-            ),
-        )
+        trace = AnalysisTrace(sample_rate=stats.sample_rate, tracks=tuple(traces.values()))
         evidence = tuple(EvidenceImage(p.evidence_id, p.jpeg) for p in picks)
         return AnalysisOutput(result, evidence, trace)
 

@@ -18,7 +18,7 @@ Teams/Zoom HR product).
 | 11 | FaceFusion dataset generator | done (pass 1, M6) |
 | 12 | Benchmark framework | done (pass 1, M7) |
 | 13 | Compression / conferencing benchmark | done (pass 1, M8) |
-| 14 | Temporal detector | later |
+| 14 | Temporal detector | done (M9: code and tests; training waits for consented lab data) |
 | 15 | Escalation layer (second opinion) | deferred: VLAForge rejected on provenance ([ADR 0006](adr/0006-vlaforge-provenance.md)) |
 | 16 | Fusion / probability calibration | later |
 | 17 | Suspicious timeline / evidence | later (a first version ships in M4/M5) |
@@ -30,10 +30,10 @@ Teams/Zoom HR product).
 
 ## Notes for later steps
 
-- **14, temporal model.** The input is in the benchmark's `traces/*.npz`: per-track
-  L2-normalised GenD embeddings at about 4 samples/s, so 8–16 samples cover 3–5 s.
-  Benchmark the mean/median baseline, a TCN and a small Transformer. Train only on the
-  `train` split. The lab's identity-level splits prevent leakage.
+- **14, temporal model.** Done in M9 ([ADR 0007](adr/0007-temporal-model.md)). TCN and
+  Transformer over GenD embeddings, trained with `dfbench temporal train` on train-split
+  traces and compared with the frame-score baselines by `dfbench temporal eval`. What
+  is left is the real run on consented lab data.
 - **15, escalation.** VLAForge cannot be used. Its code is mostly Forensics Adapter
   and DeepfakeBench, both CC BY-NC 4.0, and its weights have no licence (ADR 0006).
   Deferred until steps 14 and 16 are done and the benchmark shows where GenD fails.

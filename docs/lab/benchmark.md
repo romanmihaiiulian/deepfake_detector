@@ -105,7 +105,34 @@ unreliable when there are too few val reals to resolve that rate. Test is never 
 choose thresholds.
 
 **Aggregators:** mean (GenD's protocol), median and maximum 4 s window mean, compared on
-the same predictions. The window statistic exists to catch partial manipulations.
+the same predictions. The window statistic exists to catch partial manipulations. When
+the evaluated config has a temporal model, `temporal` is compared as well.
+
+## Temporal model (`dfbench temporal`, step 14)
+
+The temporal model needs traces of all three splits. Robustness variants of train are
+optional, and they teach the model degraded footage:
+
+```sh
+dfbench variants --split train --split val --split test          # optional
+dfbench run --run-id traces --split train --split val --split test --save-traces
+dfbench temporal train traces --arch tcn          # or --arch transformer; --seed N
+dfbench temporal eval traces --checkpoint tcn-traces-s0
+```
+
+- `train` fits on train and early-stops on val video AUC. The untrained network, which
+  equals the GenD mean, is a candidate, so the result is never worse on val. It writes
+  `data/bench/temporal/<name>.safetensors` and a training record `<name>.json` with the
+  samples, identities and per-epoch history.
+- `eval` writes `data/bench/runs/<run>/temporal/<name>/report.md`. The report has
+  temporal vs mean, median and window_max on val and test (AUC, TPR at 1% and 5% FPR,
+  paired win rate), AUC by transformation, and AUC(temporal) − AUC(mean) with a
+  pair-level bootstrap CI. Read test, not val: val chose the epoch.
+- To run the product pipeline with the model, set `temporal.checkpoint` in a pipeline
+  config. Add `aggregation.track_score: temporal` to let it decide the verdict. Then
+  `dfbench run --pipeline-config` benchmarks the whole pipeline with it.
+
+Design and rationale: [ADR 0007](../adr/0007-temporal-model.md).
 
 ## Robustness variants (`dfbench variants`)
 

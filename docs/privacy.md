@@ -55,7 +55,9 @@ limiting, HTTPS termination and a request body limit at the reverse proxy.
 The FaceFusion attack lab works only under `$DFD_DATA_ROOT` (default `./data`, gitignored).
 It never reads from or writes to the API's `var/`. Every identity in the lab needs a recorded
 `consent_ref`, and consent withdrawal is supported (`dfbench identity delete`). See
-[lab/data-collection.md](lab/data-collection.md).
+[lab/data-collection.md](lab/data-collection.md). Temporal-model checkpoints (step 14) are
+derived from lab traces. Each one records the identities it was trained on, withdrawal
+deletes it, and checkpoints are never distributed.
 
 ## Before production use
 

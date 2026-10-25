@@ -23,7 +23,7 @@ from deepfake_bench.slices import Record, build_slices
 from deepfake_core.config import QualityConfig
 
 FPR_TARGETS = (0.01, 0.05)
-AGGREGATORS = ("mean", "median", "window_max")
+AGGREGATORS = ("mean", "median", "window_max", "temporal")
 
 
 def _arrays(
@@ -44,7 +44,7 @@ def _score(record: Record, key: str | None) -> float | None:
     return None if value is None else float(value)
 
 
-def _pairs(records: Sequence[Record]) -> list[tuple[float, list[float]]]:
+def score_pairs(records: Sequence[Record]) -> list[tuple[float, list[float]]]:
     reals: dict[tuple[str, str], float] = {}
     fakes: dict[tuple[str, str], list[float]] = defaultdict(list)
     for r in records:
@@ -107,7 +107,7 @@ def evaluate(
             )
             if decided
             else None,
-            "paired_win_rate": _round(m.paired_win_rate(_pairs(records))),
+            "paired_win_rate": _round(m.paired_win_rate(score_pairs(records))),
         }
     )
     if bootstrap and len(set(groups)) >= 2:
@@ -176,7 +176,9 @@ def compare_aggregators(records: Sequence[Record]) -> dict[str, Any]:
                 "roc_auc": _round(m.roc_auc(labels, scores)),
                 "tpr_at_fpr_5pct": _round(at5[0]) if at5 else None,
                 "paired_win_rate": _round(
-                    m.paired_win_rate(_pairs([{**r, "score": _score(r, name)} for r in records]))
+                    m.paired_win_rate(
+                        score_pairs([{**r, "score": _score(r, name)} for r in records])
+                    )
                 ),
             }
     return out

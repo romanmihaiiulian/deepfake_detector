@@ -41,8 +41,8 @@ flowchart TD
     G --> AG[Track and video aggregation]
     AG --> VQ[Video quality gate]
     VQ --> VD[Verdict, confidence, intervals, evidence]
-    G -.-> TM[Temporal model, step 14]
-    TM -.-> AG
+    G --> TM["Temporal model (optional), step 14"]
+    TM --> AG
     AG -.->|suspicious window| VL[Escalation model, step 15]
     VL -.-> CAL[Fusion and calibration, step 16]
     CAL -.-> VD
@@ -52,11 +52,12 @@ Where the later stages plug in:
 
 | Stage | Hook | Input already available |
 |---|---|---|
-| Temporal model (14) | per-track scoring at track finalisation, next to the mean aggregator | `AnalysisTrace`: per-track timestamps and L2-normalised GenD embeddings at the sampling rate |
+| Temporal model (14, done: [ADR 0007](adr/0007-temporal-model.md)) | per-track scoring at track finalisation, next to the mean aggregator; enabled by `temporal.checkpoint` | `AnalysisTrace`: per-track timestamps and L2-normalised GenD embeddings at the sampling rate |
 | Escalation (15; VLAForge rejected, [ADR 0006](adr/0006-vlaforge-provenance.md)) | after aggregation, only for windows whose fast score is suspicious | suspicious intervals with track IDs and timestamps |
 | Calibration (16) | between aggregation and the verdict bands | raw `manipulation_probability`; `calibration.method` is `"none"` until then |
 
-There is no stub code for these stages; the hooks are documented here and in
+The temporal model is implemented (`deepfake_core/temporal/`) and off by default. There is
+no stub code for the other stages; their hooks are documented here and in
 [roadmap.md](roadmap.md).
 
 ## Engine data flow
@@ -72,7 +73,7 @@ The output is `AnalysisOutput(result, evidence, trace)`:
 - `result`: `AnalysisResult`, the public JSON contract (`schemas.py`, `schema_version`).
 - `evidence`: up to four JPEG face crops of the highest-scoring frames.
 - `trace`: per-detection timestamps, scores, quality and embeddings. The benchmark keeps
-  it as training input for step 14. The API discards it.
+  it as training input for the temporal model (step 14). The API discards it.
 
 ## Quality gate
 
