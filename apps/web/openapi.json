@@ -35,6 +35,7 @@
           "calibration": {
             "$ref": "#/components/schemas/Calibration",
             "default": {
+              "inputs": [],
               "method": "none",
               "note": "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16)."
             }
@@ -83,7 +84,7 @@
                 "type": "null"
               }
             ],
-            "description": "Highest track score among eligible face tracks; None if no face qualified",
+            "description": "Highest track score among eligible face tracks (calibrated when calibration.method is not 'none'); None if no face qualified",
             "title": "Manipulation Probability"
           },
           "models": {
@@ -267,9 +268,32 @@
       "Calibration": {
         "additionalProperties": false,
         "properties": {
+          "fitted_on": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Fitted On"
+          },
+          "inputs": {
+            "description": "Calibrated detector scores",
+            "items": {
+              "type": "string"
+            },
+            "title": "Inputs",
+            "type": "array"
+          },
           "method": {
-            "const": "none",
             "default": "none",
+            "enum": [
+              "none",
+              "platt",
+              "isotonic"
+            ],
             "title": "Method",
             "type": "string"
           },
@@ -277,6 +301,30 @@
             "default": "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16).",
             "title": "Note",
             "type": "string"
+          },
+          "prior": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Assumed P(manipulated)",
+            "title": "Prior"
+          },
+          "raw_probability": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The decisive score before calibration",
+            "title": "Raw Probability"
           }
         },
         "title": "Calibration",

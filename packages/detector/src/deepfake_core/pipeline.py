@@ -16,7 +16,7 @@ import time
 import uuid
 from collections import defaultdict
 from collections.abc import Callable, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from datetime import UTC, datetime
 from typing import TYPE_CHECKING
 
@@ -44,6 +44,7 @@ from deepfake_core.quality import (
 from deepfake_core.quality.gate import QualityReason, reason_for
 from deepfake_core.schemas import (
     AnalysisResult,
+    Calibration,
     DecisionThresholds,
     EvidenceFrame,
     ModelInfo,
@@ -61,6 +62,7 @@ from deepfake_core.scoring import (
     Interval,
     TrackScore,
     bands,
+    calibrate,
     decide,
     score_track,
     select_evidence,
@@ -190,6 +192,13 @@ class Analyzer:
                     "the temporal model was trained on embeddings of a different frame model"
                 )
             self.models.append(self.temporal.info)
+        calibration = self.config.calibration
+        if calibration.method != "none":
+            loaded = {m.sha256 for m in self.models}
+            if not calibration.model_sha256 or not set(calibration.model_sha256) <= loaded:
+                raise ModelIntegrityError(
+                    "the calibration was fitted on scores of models that are not loaded"
+                )
 
     def warmup(self) -> None:
         warm = getattr(self.frame_detector, "warmup", None)
@@ -362,10 +371,24 @@ class Analyzer:
                 )
             )
 
-        method = config.aggregation.track_score
+        method: str = config.aggregation.track_score
+        gend_method = "mean" if method == "temporal" else method
+        calibration = config.calibration
+        raw_probability, _ = video_probability(tracks, method)
+        if calibration.method != "none":
+            tracks = [
+                replace(
+                    t,
+                    calibrated=calibrate(
+                        {"gend": t.score(gend_method), "temporal": t.temporal}, calibration
+                    ),
+                )
+                for t in tracks
+            ]
+            method = "calibrated"
         probability, decisive = video_probability(tracks, method)
         detector_scores: dict[str, float] = {}
-        gend, _ = video_probability(tracks, "mean" if method == "temporal" else method)
+        gend, _ = video_probability(tracks, gend_method)
         if gend is not None:
             detector_scores["gend"] = round(gend, 4)
         if self.temporal is not None:
@@ -446,7 +469,7 @@ class Analyzer:
                     end=round(t.end, 3),
                     detections=t.detections,
                     scored_frames=t.scored_frames,
-                    score=_r(t.score(config.aggregation.track_score)),
+                    score=_r(t.score(method)),
                     eligible=t.eligible,
                     quality=t.quality.tier.label,
                     quality_reasons=_reasons_out(t.quality.reasons),
@@ -479,6 +502,21 @@ class Analyzer:
                 has_audio=info.has_audio,
             ),
             models=self.models,
+            calibration=Calibration()
+            if calibration.method == "none"
+            else Calibration(
+                method=calibration.method,
+                note=(
+                    "manipulation_probability is calibrated on consented lab data "
+                    f"({calibration.fitted_on or 'unrecorded'}), assuming "
+                    f"P(manipulated) = {calibration.prior:g} before looking at the video. "
+                    "It is not a statement about this person."
+                ),
+                inputs=list(calibration.inputs),
+                prior=calibration.prior,
+                fitted_on=calibration.fitted_on or None,
+                raw_probability=_r(raw_probability),
+            ),
             processing=ProcessingInfo(
                 pipeline_version=__version__,
                 config_profile=config.profile,

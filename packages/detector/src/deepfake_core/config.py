@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+from itertools import pairwise
 from pathlib import Path
 from typing import Literal
 
@@ -131,6 +132,45 @@ class TemporalConfig(_Section):
     checkpoint: str | None = Field(default=None, description="Temporal model (.safetensors)")
 
 
+CalibrationInput = Literal["gend", "temporal"]
+
+
+class CalibrationConfig(_Section):
+    """Maps raw detector scores to P(manipulated) (step 16). Fitted by `dfbench calibrate`
+    on val at an equal prior of real and manipulated; `prior` shifts the result to the
+    base rate expected in deployment. `method: none` leaves scores raw."""
+
+    method: Literal["none", "platt", "isotonic"] = "none"
+    inputs: tuple[CalibrationInput, ...] = ("gend",)
+    intercept: float = 0.0
+    coefficients: tuple[float, ...] = Field(
+        default=(), description="platt: one weight per input, applied to the score's logit"
+    )
+    isotonic_x: tuple[float, ...] = Field(default=(), description="isotonic: raw breakpoints")
+    isotonic_y: tuple[float, ...] = Field(default=(), description="isotonic: calibrated values")
+    prior: float = Field(default=0.5, gt=0, lt=1, description="Assumed P(manipulated)")
+    fitted_on: str = Field(default="", description="Provenance: run, split and sample counts")
+    model_sha256: tuple[str, ...] = Field(
+        default=(), description="Checksums of the models whose scores were calibrated"
+    )
+
+    @model_validator(mode="after")
+    def _consistent(self) -> CalibrationConfig:
+        if len(set(self.inputs)) != len(self.inputs) or not self.inputs:
+            raise ValueError("calibration.inputs must be distinct and non-empty")
+        if self.method == "platt" and len(self.coefficients) != len(self.inputs):
+            raise ValueError("platt calibration needs one coefficient per input")
+        if self.method == "isotonic":
+            if len(self.inputs) != 1:
+                raise ValueError("isotonic calibration takes exactly one input")
+            x, y = self.isotonic_x, self.isotonic_y
+            if len(x) < 2 or len(x) != len(y):
+                raise ValueError("isotonic calibration needs matching breakpoints (>= 2)")
+            if any(b < a for a, b in (*pairwise(x), *pairwise(y))):
+                raise ValueError("isotonic breakpoints must be non-decreasing")
+        return self
+
+
 class VerdictConfig(_Section):
     """Decision bands on the (uncalibrated) manipulation probability, per quality tier.
 
@@ -163,12 +203,19 @@ class PipelineConfig(_Section):
     gend: GenDConfig = GenDConfig()
     aggregation: AggregationConfig = AggregationConfig()
     temporal: TemporalConfig = TemporalConfig()
+    calibration: CalibrationConfig = CalibrationConfig()
     verdict: VerdictConfig = VerdictConfig()
 
     @model_validator(mode="after")
     def _temporal_needs_checkpoint(self) -> PipelineConfig:
         if self.aggregation.track_score == "temporal" and not self.temporal.checkpoint:
             raise ValueError("aggregation.track_score 'temporal' needs temporal.checkpoint")
+        if (
+            self.calibration.method != "none"
+            and "temporal" in self.calibration.inputs
+            and not self.temporal.checkpoint
+        ):
+            raise ValueError("calibration input 'temporal' needs temporal.checkpoint")
         return self
 
     def config_hash(self) -> str:

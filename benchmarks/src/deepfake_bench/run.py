@@ -64,6 +64,7 @@ def pipeline_identity(analyzer: Any) -> dict[str, Any]:
         "config_profile": getattr(config, "profile", "unknown"),
         "operating_threshold": getattr(verdict, "manipulated_threshold", 0.8),
         "models": [m.model_dump() for m in analyzer.models],
+        "pipeline_config": config.model_dump(mode="json") if config is not None else None,
     }
 
 

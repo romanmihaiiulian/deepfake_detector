@@ -20,7 +20,7 @@ Teams/Zoom HR product).
 | 13 | Compression / conferencing benchmark | done (pass 1, M8) |
 | 14 | Temporal detector | done (M9: code and tests; training waits for consented lab data) |
 | 15 | Escalation layer (second opinion) | deferred: VLAForge rejected on provenance ([ADR 0006](adr/0006-vlaforge-provenance.md)) |
-| 16 | Fusion / probability calibration | later |
+| 16 | Fusion / probability calibration | done (M10: code and tests; fitting waits for consented lab data) |
 | 17 | Suspicious timeline / evidence | later (a first version ships in M4/M5) |
 | 18 | Production API | later |
 | 19 | Docker / GPU deployment | later |
@@ -36,11 +36,12 @@ Teams/Zoom HR product).
   is left is the real run on consented lab data.
 - **15, escalation.** VLAForge cannot be used. Its code is mostly Forensics Adapter
   and DeepfakeBench, both CC BY-NC 4.0, and its weights have no licence (ADR 0006).
-  Deferred until steps 14 and 16 are done and the benchmark shows where GenD fails.
+  Deferred until a lab benchmark of steps 14 and 16 shows where GenD fails.
   Whatever fills the hook later runs only on suspicious windows.
-- **16, calibration.** Replace the M7 threshold recommendation with calibrated
-  probabilities fitted on `val`, reported with ECE on `test`. Set `calibration.method` in
-  results.
+- **16, calibration.** Done in M10 ([ADR 0008](adr/0008-calibration-and-fusion.md)).
+  `dfbench calibrate` fits Platt or isotonic on val, optionally fusing GenD and temporal.
+  It chooses thresholds at a target FPR and reports class-balanced ECE, Brier and log
+  loss on test. What is left is a fit on consented lab data.
 - **19, Docker.** Build PyAV against an LGPL FFmpeg (ADR 0004). Use CPU and CUDA torch
   indexes for Linux.
 - **20, streaming.** The engine already processes frames in streaming order with an

@@ -8,6 +8,7 @@ dfbench generate [--fake-facefusion]          real + FaceFusion samples (pristin
 dfbench import CSV --dataset NAME             evaluation-only external dataset
 dfbench variants | run | report               robustness variants, benchmark runs, reports
 dfbench temporal train RUN | eval RUN --checkpoint NAME   temporal model (step 14)
+dfbench calibrate RUN [--method platt|isotonic]           calibration profile (step 16)
 """
 
 from __future__ import annotations
@@ -182,6 +183,25 @@ def cmd_report(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_calibrate(args: argparse.Namespace) -> int:
+    from deepfake_bench.calibrate import run_calibration
+
+    run_dir = LabPaths.resolve(args.data_root).runs / args.run_id
+    if not (run_dir / "predictions.jsonl").is_file():
+        raise LabError(f"no predictions in {run_dir}: run `dfbench run` first")
+    result = run_calibration(
+        run_dir,
+        method=args.method,
+        inputs=tuple(args.input) if args.input else None,
+        prior=args.prior,
+        target_fpr=args.target_fpr,
+        target_cleared_fake=args.target_cleared_fake,
+    )
+    reliable = "" if result.report["reliable"] else " (unreliable: too few val videos)"
+    print(f"wrote profile {result.config.profile} -> {result.profile}{reliable}")
+    return 0
+
+
 def cmd_temporal(args: argparse.Namespace) -> int:
     from deepfake_bench import temporal
 
@@ -277,6 +297,17 @@ def build_parser() -> argparse.ArgumentParser:
     report.add_argument("run_id")
     report.add_argument("--bootstrap", type=int, default=1000)
     report.set_defaults(handler=cmd_report)
+
+    calibrate = commands.add_parser("calibrate", help="fit calibration and thresholds on val")
+    calibrate.add_argument("run_id")
+    calibrate.add_argument("--method", choices=["platt", "isotonic"], default="platt")
+    calibrate.add_argument(
+        "--input", action="append", choices=["gend", "temporal"], help="default: all in the run"
+    )
+    calibrate.add_argument("--prior", type=float, default=0.5, help="assumed P(manipulated)")
+    calibrate.add_argument("--target-fpr", type=float, default=0.01)
+    calibrate.add_argument("--target-cleared-fake", type=float, default=0.05)
+    calibrate.set_defaults(handler=cmd_calibrate)
 
     temporal = commands.add_parser("temporal", help="train or evaluate the temporal model")
     temporal.add_argument("action", choices=["train", "eval"])

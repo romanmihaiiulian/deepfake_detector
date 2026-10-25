@@ -126,11 +126,20 @@ class ProcessingInfo(_Model):
     stage_ms: dict[str, float]
 
 
+UNCALIBRATED_NOTE: Final = (
+    "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are "
+    "provisional until calibration (roadmap step 16)."
+)
+
+
 class Calibration(_Model):
-    method: Literal["none"] = "none"
-    note: str = (
-        "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are "
-        "provisional until calibration (roadmap step 16)."
+    method: Literal["none", "platt", "isotonic"] = "none"
+    note: str = UNCALIBRATED_NOTE
+    inputs: list[str] = Field(default_factory=list, description="Calibrated detector scores")
+    prior: float | None = Field(default=None, description="Assumed P(manipulated)")
+    fitted_on: str | None = None
+    raw_probability: float | None = Field(
+        default=None, description="The decisive score before calibration"
     )
 
 
@@ -139,7 +148,10 @@ class AnalysisResult(_Model):
     analysis_id: str
     verdict: Verdict
     manipulation_probability: float | None = Field(
-        description="Highest track score among eligible face tracks; None if no face qualified"
+        description=(
+            "Highest track score among eligible face tracks (calibrated when "
+            "calibration.method is not 'none'); None if no face qualified"
+        )
     )
     confidence: Confidence
     video_quality: QualityLevel

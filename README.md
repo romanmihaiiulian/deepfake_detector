@@ -82,6 +82,7 @@ uv run dfbench split && uv run dfbench generate && uv run dfbench variants
 uv run dfbench run --run-id baseline --save-traces && uv run dfbench report baseline
 uv run dfbench run --run-id traces --split train --split val --split test --save-traces
 uv run dfbench temporal train traces && uv run dfbench temporal eval traces --checkpoint tcn-traces-s0
+uv run dfbench calibrate traces       # writes a calibrated pipeline profile (YAML)
 ```
 
 See [docs/lab/data-collection.md](docs/lab/data-collection.md) (consent rules) and

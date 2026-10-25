@@ -84,7 +84,7 @@ example new thresholds.
 | ROC-AUC, PR-AUC | Threshold-free ranking quality |
 | Precision, recall, F1, FPR, FNR | At the operating threshold of the evaluated config |
 | TPR at 1% and 5% FPR | The HR-relevant operating points |
-| ECE (15 bins), Brier | Calibration of the raw score; it is not calibrated yet (step 16) |
+| ECE (15 bins), Brier | Calibration of the score as reported; see `dfbench calibrate` below for class-balanced versions (step 16) |
 | Flagged-real rate | Real videos whose verdict was `manipulated_likely`. This is the false accusation rate |
 | Cleared-fake rate, abstention rate, decided accuracy | Verdict-level behaviour, including `inconclusive` |
 | Paired win rate | Share of fakes that score above their own source video |
@@ -98,7 +98,7 @@ transformation group, each swapper, `settings:seen` and `settings:unseen` (held-
 swappers, test only), `tool:<dataset>` (external datasets, i.e. unseen tools), predicted
 quality tier, and resolution bucket.
 
-**Threshold recommendation:** for each verdict band (`manipulated_threshold` on
+**Threshold recommendation (raw scale):** for each verdict band (`manipulated_threshold` on
 good/fair video, `poor_manipulated_threshold` on poor video), the report lists the
 threshold that keeps the FPR on **val** reals at 1% and at 5%. It marks a recommendation
 unreliable when there are too few val reals to resolve that rate. Test is never used to
@@ -133,6 +133,31 @@ dfbench temporal eval traces --checkpoint tcn-traces-s0
   `dfbench run --pipeline-config` benchmarks the whole pipeline with it.
 
 Design and rationale: [ADR 0007](../adr/0007-temporal-model.md).
+
+## Calibration (`dfbench calibrate`, step 16)
+
+```sh
+dfbench calibrate traces                       # Platt; fuses temporal when the run has it
+dfbench calibrate traces --method isotonic --input gend
+dfbench calibrate traces --prior 0.01 --target-fpr 0.01 --target-cleared-fake 0.05
+dfbench run --run-id calibrated --pipeline-config data/bench/runs/traces/calibration/platt.yaml
+```
+
+- **Fit:** on val, with classes weighted equally, so the result is P(manipulated) at a
+  50% prior. `--prior` shifts it to the base rate you expect.
+- **Thresholds:** chosen on the calibrated val scores. `manipulated` holds the FPR at
+  the target. `authentic` clears at most the target share of fakes. The poor band uses
+  poor val videos, or is derived from the normal band when there are none.
+- **Report:** `calibration/<method>.report.md` shows class-balanced ECE, Brier, log loss
+  and AUC on test, raw vs calibrated, overall and per quality tier, plus verdict rates
+  before and after.
+- **Profile:** `calibration/<method>.yaml` is a complete pipeline config, bound to the
+  scoring models' checksums. Use it with `deepfake-core analyze --config`, the API's
+  config file or `dfbench run --pipeline-config`.
+- **Reliability:** with fewer than 20 val videos per class, the fit is marked unreliable.
+
+The run must record its pipeline config, which `dfbench run` does from this version
+on. Design: [ADR 0008](../adr/0008-calibration-and-fusion.md).
 
 ## Robustness variants (`dfbench variants`)
 

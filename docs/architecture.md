@@ -44,8 +44,9 @@ flowchart TD
     G --> TM["Temporal model (optional), step 14"]
     TM --> AG
     AG -.->|suspicious window| VL[Escalation model, step 15]
-    VL -.-> CAL[Fusion and calibration, step 16]
-    CAL -.-> VD
+    AG --> CAL["Fusion and calibration (optional), step 16"]
+    CAL --> VD
+    VL -.-> CAL
 ```
 
 Where the later stages plug in:
@@ -54,10 +55,11 @@ Where the later stages plug in:
 |---|---|---|
 | Temporal model (14, done: [ADR 0007](adr/0007-temporal-model.md)) | per-track scoring at track finalisation, next to the mean aggregator; enabled by `temporal.checkpoint` | `AnalysisTrace`: per-track timestamps and L2-normalised GenD embeddings at the sampling rate |
 | Escalation (15; VLAForge rejected, [ADR 0006](adr/0006-vlaforge-provenance.md)) | after aggregation, only for windows whose fast score is suspicious | suspicious intervals with track IDs and timestamps |
-| Calibration (16) | between aggregation and the verdict bands | raw `manipulation_probability`; `calibration.method` is `"none"` until then |
+| Calibration (16, done: [ADR 0008](adr/0008-calibration-and-fusion.md)) | per track, between aggregation and the verdict bands; enabled by `calibration.method` | raw track scores (`gend`, `temporal`); results report `calibration.method`, `prior` and `raw_probability` |
 
-The temporal model is implemented (`deepfake_core/temporal/`) and off by default. There is
-no stub code for the other stages; their hooks are documented here and in
+The temporal model (`deepfake_core/temporal/`) and calibration
+(`deepfake_core/scoring/calibration.py`) are implemented and off by default. There is no
+stub code for the escalation stage; its hook is documented here and in
 [roadmap.md](roadmap.md).
 
 ## Engine data flow

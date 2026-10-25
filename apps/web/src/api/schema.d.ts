@@ -113,6 +113,7 @@ export interface components {
             analysis_id: string;
             /**
              * @default {
+             *       "inputs": [],
              *       "method": "none",
              *       "note": "Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16)."
              *     }
@@ -139,7 +140,7 @@ export interface components {
             face_tracks: number;
             /**
              * Manipulation Probability
-             * @description Highest track score among eligible face tracks; None if no face qualified
+             * @description Highest track score among eligible face tracks (calibrated when calibration.method is not 'none'); None if no face qualified
              */
             manipulation_probability: number | null;
             /** Models */
@@ -211,17 +212,34 @@ export interface components {
         };
         /** Calibration */
         Calibration: {
+            /** Fitted On */
+            fitted_on?: string | null;
+            /**
+             * Inputs
+             * @description Calibrated detector scores
+             */
+            inputs?: string[];
             /**
              * Method
              * @default none
-             * @constant
+             * @enum {string}
              */
-            method: "none";
+            method: "none" | "platt" | "isotonic";
             /**
              * Note
              * @default Scores are raw detector probabilities, not calibrated likelihoods. Thresholds are provisional until calibration (roadmap step 16).
              */
             note: string;
+            /**
+             * Prior
+             * @description Assumed P(manipulated)
+             */
+            prior?: number | null;
+            /**
+             * Raw Probability
+             * @description The decisive score before calibration
+             */
+            raw_probability?: number | null;
         };
         /**
          * DecisionThresholds

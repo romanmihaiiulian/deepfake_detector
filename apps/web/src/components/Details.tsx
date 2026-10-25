@@ -2,6 +2,11 @@ import { evidenceUrl } from "../api/client";
 import type { AnalysisResult } from "../api/types";
 import { QUALITY_TEXT, formatScore, formatSeconds } from "../lib/text";
 
+const DETECTOR_NAMES: Record<string, string> = {
+  gend: "GenD (frame detector)",
+  temporal: "Temporal model",
+};
+
 export function DetectorScores({ result }: { result: AnalysisResult }) {
   const entries = Object.entries(result.detector_scores);
   return (
@@ -14,10 +19,16 @@ export function DetectorScores({ result }: { result: AnalysisResult }) {
           <tbody>
             {entries.map(([name, score]) => (
               <tr key={name}>
-                <th scope="row">{name === "gend" ? "GenD (frame detector)" : name}</th>
+                <th scope="row">{DETECTOR_NAMES[name] ?? name}</th>
                 <td>{formatScore(score)}</td>
               </tr>
             ))}
+            {result.calibration.method !== "none" && (
+              <tr>
+                <th scope="row">Calibrated ({result.calibration.method})</th>
+                <td>{formatScore(result.manipulation_probability)}</td>
+              </tr>
+            )}
           </tbody>
         </table>
       )}

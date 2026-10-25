@@ -47,6 +47,8 @@ class TrackScore:
     timeline: tuple[FrameScore, ...]
     temporal: float | None = None
     """Temporal-model score (step 14); None when no temporal model is configured."""
+    calibrated: float | None = None
+    """Calibrated P(manipulated) (step 16); None when calibration is off."""
 
     def score(self, method: str) -> float | None:
         return {
@@ -54,6 +56,7 @@ class TrackScore:
             "median": self.median,
             "window_max": self.window_max,
             "temporal": self.temporal,
+            "calibrated": self.calibrated,
         }[method]
 
 

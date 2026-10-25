@@ -113,22 +113,50 @@ def confusion(labels: Array, scores: Array, threshold: float) -> Confusion:
     )
 
 
-def expected_calibration_error(labels: Array, scores: Array, bins: int = 15) -> float | None:
-    """ECE of score-as-P(manipulated): weighted |accuracy - confidence| over equal-width bins."""
+def balanced_weights(labels: Array) -> Array:
+    """Sample weights under which both classes weigh the same (a 50% prior)."""
+    weights = np.zeros_like(labels, dtype=np.float64)
+    for value in (0.0, 1.0):
+        members = labels == value
+        if members.any():
+            weights[members] = 0.5 / members.sum()
+    return weights
+
+
+def expected_calibration_error(
+    labels: Array, scores: Array, bins: int = 15, weights: Array | None = None
+) -> float | None:
+    """ECE of score-as-P(manipulated): weighted |accuracy - confidence| over equal-width bins.
+    With `weights`, bins and their averages are weighted (e.g. `balanced_weights`)."""
     if labels.size == 0:
         return None
+    w = np.ones_like(scores, dtype=np.float64) if weights is None else weights
+    w = w / w.sum()
     edges = np.linspace(0.0, 1.0, bins + 1)
     index = np.clip(np.digitize(scores, edges[1:-1], right=True), 0, bins - 1)
     error = 0.0
     for b in range(bins):
         members = index == b
-        if members.any():
-            error += members.mean() * abs(labels[members].mean() - scores[members].mean())
+        mass = w[members].sum()
+        if mass > 0:
+            accuracy = (w[members] * labels[members]).sum() / mass
+            confidence = (w[members] * scores[members]).sum() / mass
+            error += mass * abs(accuracy - confidence)
     return float(error)
 
 
-def brier(labels: Array, scores: Array) -> float | None:
-    return float(np.mean((scores - labels) ** 2)) if labels.size else None
+def brier(labels: Array, scores: Array, weights: Array | None = None) -> float | None:
+    if not labels.size:
+        return None
+    return float(np.average((scores - labels) ** 2, weights=weights))
+
+
+def log_loss(labels: Array, scores: Array, weights: Array | None = None) -> float | None:
+    if not labels.size:
+        return None
+    p = np.clip(scores, 1e-6, 1 - 1e-6)
+    losses = -(labels * np.log(p) + (1 - labels) * np.log1p(-p))
+    return float(np.average(losses, weights=weights))
 
 
 def paired_win_rate(pairs: Sequence[tuple[float, Sequence[float]]]) -> float | None:

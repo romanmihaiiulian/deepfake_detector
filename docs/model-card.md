@@ -77,11 +77,20 @@ These are observations, not benchmark results:
 
 ## Thresholds and calibration
 
-All thresholds are profile `uncalibrated-v0`. They are deliberately conservative on the
-manipulated side, because the product's first objective is a very low false-positive rate.
-The benchmark recommends thresholds at 1% and 5% FPR on the validation split. Proper
-calibration is step 16. Every result reports `processing.config_profile` and
-`config_hash`.
+The default profile is `uncalibrated-v0`. Its thresholds are deliberately conservative on
+the manipulated side, because the product's first objective is a very low false-positive
+rate, and `manipulation_probability` is a raw GenD score (`calibration.method: "none"`).
+
+`dfbench calibrate` (step 16, [ADR 0008](adr/0008-calibration-and-fusion.md)) fits
+Platt or isotonic calibration on lab val data. It optionally fuses GenD with the
+temporal model. It then chooses verdict thresholds on the calibrated scale at a target
+FPR, and writes a profile `calibrated-<run>-<method>`.
+- A calibrated probability assumes the prior in `calibration.prior` (50% unless
+  configured).
+- It describes lab-like video, and it is not a statement about a person.
+- No profile has been fitted on lab data yet.
+
+Every result reports `processing.config_profile`, `config_hash` and `calibration`.
 
 ## Privacy
 

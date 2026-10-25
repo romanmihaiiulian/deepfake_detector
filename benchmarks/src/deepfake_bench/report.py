@@ -1,7 +1,8 @@
 """Benchmark report: metrics per slice with bootstrap CIs, plots, threshold recommendations.
 
 The recommended thresholds come from the **val** split. They hold the false-positive rate
-on real videos at 1% or 5%, and are a stopgap until proper calibration (roadmap step 16).
+on real videos at 1% or 5%, on the raw score. `dfbench calibrate` (step 16) chooses them
+on the calibrated scale and writes a complete pipeline profile.
 Applying a threshold tuned on test would make the test numbers optimistic, so test is
 used only for reporting.
 """
