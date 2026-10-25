@@ -1,0 +1,113 @@
+{
+  "description": "Upstream GenD probabilities on GenD's sample crops (numbers only).",
+  "model": {
+    "repo": "yermandy/GenD_CLIP_L_14",
+    "revision": "891ce014a0308386c4d7d25b3dcf436a22db5504"
+  },
+  "upstream_modeling_gend_sha256": "d2bdc7d57ea208def628f16064c7d22317ec92878b982ac6ac5ab4bcda4991ac",
+  "torch": "2.8.0",
+  "transformers": "4.56.2",
+  "image_processor": "CLIPImageProcessor",
+  "samples": {
+    "FF/DF/000_003/000.png": {
+      "sha256": "b2c605732c6b2152320a986173c1a3dc7544938e948aa46444340831b8018060",
+      "label": "fake",
+      "p_fake": 0.967039
+    },
+    "FF/DF/000_003/012.png": {
+      "sha256": "91b2bf24d9c3685c28559a5ac8c91b94bbe5b841a563b961f4a7679f40e8f4b8",
+      "label": "fake",
+      "p_fake": 0.97671
+    },
+    "FF/DF/000_003/025.png": {
+      "sha256": "ca387094072caa412a0f683d909084580896f2c40dd669baf41c04166efffa95",
+      "label": "fake",
+      "p_fake": 0.983402
+    },
+    "FF/DF/000_003/038.png": {
+      "sha256": "781d4ab6041c8b37c75b7d831f02944cae11b41fb848d5e34c577a142cb3a1a0",
+      "label": "fake",
+      "p_fake": 0.973591
+    },
+    "FF/F2F/000_003/000.png": {
+      "sha256": "a8e8c25ddc42909f3b82aedf939ca5fcf3924d1aeb54ad9dbb507ed97d050692",
+      "label": "fake",
+      "p_fake": 0.988634
+    },
+    "FF/FS/000_003/000.png": {
+      "sha256": "57b282095be875d9b161360d43cbd4b04d0536c093bb967e6bc6661baf7db361",
+      "label": "fake",
+      "p_fake": 0.96125
+    },
+    "FF/NT/000_003/000.png": {
+      "sha256": "ca2b6ce7ea30df50d86855adc4c2dd11b1ba0848153746303e73cb58d7035290",
+      "label": "fake",
+      "p_fake": 0.988106
+    },
+    "FF/real/000/000.png": {
+      "sha256": "33813fa2f7a716f20f27f11bf7e4126c53136108bec3db92dd6001e9453b185a",
+      "label": "real",
+      "p_fake": 0.319245
+    },
+    "FF/real/000/012.png": {
+      "sha256": "d3af45388e764ae25e9a176a9ed148004d4e155146c9364199852a96815aafaf",
+      "label": "real",
+      "p_fake": 0.258083
+    },
+    "FF/real/000/025.png": {
+      "sha256": "2b027fe48cf3468ad596acf3f8f9db59374dce243f57d4abdb89ab557e6681b6",
+      "label": "real",
+      "p_fake": 0.659941
+    },
+    "FF/real/000/038.png": {
+      "sha256": "fc521c3b01c76428d353d734fde85969613e450666135881029c1e4e5cd38ce1",
+      "label": "real",
+      "p_fake": 0.08573
+    },
+    "CDFv2/Celeb-real/id0_0000/000.png": {
+      "sha256": "33a652cb6ad545d41465a978ab4bb02137380db1747a1a460d193a3e0ecd4db6",
+      "label": "real",
+      "p_fake": 0.798691
+    },
+    "CDFv2/Celeb-real/id0_0000/015.png": {
+      "sha256": "cca6e95d080ccafbd35709c0e6ce60a12b415c7f97cf40ac4c1edb7fba441e4f",
+      "label": "real",
+      "p_fake": 0.978361
+    },
+    "CDFv2/Celeb-real/id0_0000/030.png": {
+      "sha256": "20d6775e831ef3bab80cd928c930b0916f09b933814fe0d2b1d6e51b0106c77a",
+      "label": "real",
+      "p_fake": 0.975876
+    },
+    "CDFv2/Celeb-real/id0_0000/045.png": {
+      "sha256": "6ca1683cfe93a01ac7800de0efa5f82c38abb5b17582c5708671de567958e08e",
+      "label": "real",
+      "p_fake": 0.944205
+    },
+    "CDFv2/Celeb-synthesis/id0_id1_0000/000.png": {
+      "sha256": "cae26283688b2e1855b75b922f75e0945dd29f1669e5c399b9e0f5bc75a4700c",
+      "label": "fake",
+      "p_fake": 0.529049
+    },
+    "CDFv2/Celeb-synthesis/id0_id1_0000/015.png": {
+      "sha256": "708f825b0fa8403e5db2966d96e4be4b18f4d1f55ab7352acdc2bd2d7542ee5b",
+      "label": "fake",
+      "p_fake": 0.906787
+    },
+    "CDFv2/Celeb-synthesis/id0_id1_0000/030.png": {
+      "sha256": "5693e8c8469630a8699f6cc4b8a51edd4297d31a956a14deba1a1b7796230ec4",
+      "label": "fake",
+      "p_fake": 0.873577
+    },
+    "CDFv2/Celeb-synthesis/id0_id1_0000/045.png": {
+      "sha256": "90c2250095d7331e64caa42d04d25cac5881288bbfa7013e68302cbe758ade06",
+      "label": "fake",
+      "p_fake": 0.807532
+    },
+    "CDFv2/YouTube-real/00000/000.png": {
+      "sha256": "c959f785348832e39685a4918904b3a145ff475ce69eef55624708b423473218",
+      "label": "real",
+      "p_fake": 0.166552
+    }
+  }
+}

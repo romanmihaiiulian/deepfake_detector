@@ -20,16 +20,26 @@ apps/web/playwright-report/
 models/
 
 # Runtime state of the API (uploads, results, evidence)
-var/
+/var/
 
-# Research data: lab sources, fakes, variants, benchmark runs (see docs/lab/)
-data/
+# Research data: lab sources, fakes, variants, benchmark runs (see docs/lab/).
+# Anchored so tests/core/data/ (reference numbers, no images) stays tracked.
+/data/
 
 # Downloaded test fixtures (public-domain portraits, GenD sample crops)
 tests/.fixtures/
 
 # Benchmark traces
 *.npz
+
+# Coverage, logs, local secrets
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+*.log
+.env
+.env.*
 
 # OS / editors
 .DS_Store
