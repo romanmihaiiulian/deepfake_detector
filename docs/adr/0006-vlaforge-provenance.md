@@ -1,7 +1,7 @@
 # ADR 0006: VLAForge provenance review, so do not integrate it
 
-- Status: accepted (do not integrate). The replacement for step 15 is still open; see
-  "Options".
+- Status: accepted (do not integrate). Step 15 is deferred (option D, chosen
+  2026-10-25).
 - Date: 2026-10-25
 
 ## Context
@@ -83,7 +83,10 @@ in `environment.yml`.
   Adapter as a research reference.
 - The papers stay usable as research references, as DeepfakeBench and SBI already are.
 
-## Options for step 15 (needs a decision)
+## Options for step 15
+
+Chosen on 2026-10-25: **D, defer**. Steps 14 and 16 come first, and escalation is
+revisited once the benchmark shows where GenD fails.
 
 | Option | What it takes | Risk |
 |---|---|---|
