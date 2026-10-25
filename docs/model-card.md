@@ -70,7 +70,7 @@ These are observations, not benchmark results:
 - **Compression and conferencing degradation have not been measured yet.** M8 measures
   FPR on recompressed, low-resolution, screen-recorded and conference-like video.
 - **Frame-level detector only.** There is no temporal model yet (step 14) and no second
-  opinion (VLAForge, step 15).
+  opinion (step 15).
 - **No demographic evaluation yet.** The detector must be evaluated across skin tones, ages
   and genders before any deployment.
 

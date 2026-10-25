@@ -127,7 +127,7 @@ entries:
   commercial_use: 'no'
   distributed: false
   review_date: 2026-10-24
-  notes: Not downloaded by this project. GenD and VLAForge were trained on it. GenD's sample crops (derived
+  notes: Not downloaded by this project. GenD (and VLAForge, not integrated) were trained on it. GenD's sample crops (derived
     from FF++ and Celeb-DF) are fetched at test time by the fidelity test and never committed.
 - name: 'Test fixtures: GenD sample face crops (FF++ / Celeb-DF v2 frames)'
   kind: dataset
@@ -232,15 +232,25 @@ entries:
   notes: Research reference only. No code copied.
 - name: VLAForge
   kind: reference
-  version: pending
+  version: 5ec3b2b4333a8b4140b1d5de18f80faae0789813
   source: https://github.com/mala-lab/VLAForge
-  license: MIT
-  commercial_use: review_required
+  license: CC-BY-NC-4.0
+  commercial_use: 'no'
   distributed: false
-  review_date: 2026-10-24
-  notes: Planned step-15 escalation model. Code is MIT-labelled, but its dataset/trainer layout mirrors
-    DeepfakeBench (CC BY-NC 4.0), its weights are on Google Drive with no stated license, and it was trained
-    on FF++. Provenance review is the first task of step 15.
+  review_date: 2026-10-25
+  notes: 'Repository is MIT-labelled, but its model code is 92-99% Forensics Adapter (CC BY-NC 4.0) and
+    its trainer/dataset/metrics code 66-100% DeepfakeBench (CC BY-NC 4.0); the MIT label cannot relicense
+    either. Weights: Google Drive, no license, trained on FF++. Not integrated; research reference only.
+    See ADR 0006.'
+- name: Forensics Adapter
+  kind: reference
+  version: a4cc94fa4255d2baa85cb26989fb884b098010e3
+  source: https://github.com/OUC-VAS/ForensicsAdapter
+  license: CC-BY-NC-4.0
+  commercial_use: 'no'
+  distributed: false
+  review_date: 2026-10-25
+  notes: Research reference only (CVPR 2025). Source of VLAForge's model code. No code copied. See ADR 0006.
 - name: annotated-doc
   kind: python
   version: 0.0.5

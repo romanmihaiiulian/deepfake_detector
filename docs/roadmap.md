@@ -19,7 +19,7 @@ Teams/Zoom HR product).
 | 12 | Benchmark framework | done (pass 1, M7) |
 | 13 | Compression / conferencing benchmark | done (pass 1, M8) |
 | 14 | Temporal detector | later |
-| 15 | VLAForge escalation layer | later |
+| 15 | Escalation layer (second opinion) | provenance review done: VLAForge rejected ([ADR 0006](adr/0006-vlaforge-provenance.md)); model choice open |
 | 16 | Fusion / probability calibration | later |
 | 17 | Suspicious timeline / evidence | later (a first version ships in M4/M5) |
 | 18 | Production API | later |
@@ -34,9 +34,10 @@ Teams/Zoom HR product).
   L2-normalised GenD embeddings at about 4 samples/s, so 8–16 samples cover 3–5 s.
   Benchmark the mean/median baseline, a TCN and a small Transformer. Train only on the
   `train` split. The lab's identity-level splits prevent leakage.
-- **15, VLAForge.** Start with the provenance review recorded in `licenses.yml`: code
-  structure derived from DeepfakeBench, weights with no license, FF++ training. Run it
-  only on suspicious windows.
+- **15, escalation.** VLAForge cannot be used. Its code is mostly Forensics Adapter
+  and DeepfakeBench, both CC BY-NC 4.0, and its weights have no licence (ADR 0006).
+  The options are licence requests, a clean-room reimplementation, a different second
+  opinion, or deferring. Whatever fills the hook runs only on suspicious windows.
 - **16, calibration.** Replace the M7 threshold recommendation with calibrated
   probabilities fitted on `val`, reported with ECE on `test`. Set `calibration.method` in
   results.

@@ -43,7 +43,7 @@ flowchart TD
     VQ --> VD[Verdict, confidence, intervals, evidence]
     G -.-> TM[Temporal model, step 14]
     TM -.-> AG
-    AG -.->|suspicious window| VL[VLAForge confirmation, step 15]
+    AG -.->|suspicious window| VL[Escalation model, step 15]
     VL -.-> CAL[Fusion and calibration, step 16]
     CAL -.-> VD
 ```
@@ -53,7 +53,7 @@ Where the later stages plug in:
 | Stage | Hook | Input already available |
 |---|---|---|
 | Temporal model (14) | per-track scoring at track finalisation, next to the mean aggregator | `AnalysisTrace`: per-track timestamps and L2-normalised GenD embeddings at the sampling rate |
-| VLAForge (15) | after aggregation, only for windows whose fast score is suspicious | suspicious intervals with track IDs and timestamps |
+| Escalation (15; VLAForge rejected, [ADR 0006](adr/0006-vlaforge-provenance.md)) | after aggregation, only for windows whose fast score is suspicious | suspicious intervals with track IDs and timestamps |
 | Calibration (16) | between aggregation and the verdict bands | raw `manipulation_probability`; `calibration.method` is `"none"` until then |
 
 There is no stub code for these stages; the hooks are documented here and in
